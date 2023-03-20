@@ -12,8 +12,8 @@
         </v-col>
         <v-col cols="5" class="text-center">
           <div class="position-relative" style="width: 460px">
-            <img src="src/assets/portrait.png" />
-            <img src="src/assets/decorator-shape-1.svg" class="portrait-shapes" />
+            <img src="/portrait.png" />
+            <img src="/decorator-shape-1.svg" class="portrait-shapes" />
           </div>
         </v-col>
       </v-row>

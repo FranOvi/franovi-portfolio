@@ -40,7 +40,7 @@ const scrollTo = (refName: string) => {
   //TODO No deberia ser por este metodo. Solo con el link deberia funcionar.
   const element = document.getElementById(`section-${refName}`);
   console.log(element);
-  element.scrollIntoView({ behavior: "smooth" });
+  element?.scrollIntoView({ behavior: "smooth" });
 }
 
 const links = ref([
