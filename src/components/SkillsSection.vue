@@ -2,14 +2,23 @@
   <v-container tag="section" id="section-skills">
     <h2>Skills</h2>
     <h3>Professional Experience</h3>
+
+    <TimelineGantt></TimelineGantt>
+
     <v-timeline side="end">
       <v-timeline-item
         v-for="experience in experiences"
         :key="experience.id"
         size="small"
       >
+        <template v-slot:opposite>
+          <p>
+            {{ experience.startDate }} - {{ experience.endDate }}
+          </p>
+          <span class="text-caption">({{ experience.elapsedTime }})</span>
+        </template>
         <div class="text-h5">{{ experience.company }}</div>
-        <div class="text-h6">{{ experience.position }} <span class="text-caption">{{ experience.startDate }} - {{ experience.endDate }} ({{ experience.elapsedTime }})</span></div>
+        <div class="text-h6">{{ experience.position }} </div>
         <p>
           {{ experience.description}}
           <ul v-if="experience.tasks">
@@ -22,31 +31,39 @@
     </v-timeline>
 
     <h3>Languages</h3>
-    <v-chip class="mr-2">
-      Spanish - Native
-    </v-chip>
-    <v-chip class="mr-2">
-      English - Fluent
-    </v-chip>
-
-    <h3>Tech Skills</h3>
     <v-chip-group>
-      <v-chip v-for="skill in techSkills" :prepend-icon="skill.icon">
-        {{ skill.name }}
+      <v-chip size="large">
+        Spanish - Native
+      </v-chip>
+      <v-chip size="large">
+        English - Fluent
       </v-chip>
     </v-chip-group>
+
+    <h3>Tech Skills</h3>
+    <div v-for="(skills, group) in techSkillsGrouped">
+      {{ group }}
+      <v-chip-group>
+        <v-chip v-for="skill in skills" :prepend-icon="skill.icon" size="large">
+          {{ skill.name }}
+        </v-chip>
+      </v-chip-group>
+    </div>
   </v-container>
 </template>
 
 <script lang="ts" setup>
-  import { ref } from 'vue';
+  import TimelineGantt from '@/components/TimelineGantt.vue'
+  import { ref, computed } from 'vue';
+  import type { Experience } from '@/types/experience';
+  import type { Skill } from '@/types/skill';
 
-  const experiences = ref([
+  const experiences = ref<Experience[]>([
     {
       'id': 'implementhit',
       'company': 'ImplementHIT',
       'position': 'Mid. Fullstack Developer',
-      'startDate': 'June, 2021',
+      'startDate': 'Jun. 2021',
       'endDate': 'Current',
       'elapsedTime': '1 year 10 months',
       'description': 'Fullstack developer for a US based company, developed multiple applications with the Laravel and Vue.js stack of technologies.',
@@ -62,8 +79,8 @@
       'id': 'telesoft',
       'company': 'VitalPBX',
       'position': 'Jr. Developer',
-      'startDate': 'November, 2019',
-      'endDate': 'June, 2021',
+      'startDate': 'Nov. 2019',
+      'endDate': 'Jun. 2021',
       'elapsedTime': '1 year 10 months',
       'description': 'Develop multiple applications with the Laravel and Vue.js stack of technologies.',
       'tasks': [
@@ -77,8 +94,8 @@
       'id': 'fitnesscorecenter',
       'company': 'Fitness Core Center',
       'position': 'Intern Jr. Fullstack Developer',
-      'startDate': 'January, 2020',
-      'endDate': 'June, 2020',
+      'startDate': 'Jan. 2020',
+      'endDate': 'Jun. 2020',
       'elapsedTime': '6 months',
       'description': '',
       'tasks': [
@@ -89,8 +106,8 @@
       'id': 'beebusiness',
       'company': 'Bee Business Suite',
       'position': 'Intern Jr. Developer',
-      'startDate': 'March, 2019',
-      'endDate': 'October, 2019',
+      'startDate': 'Mar. 2019',
+      'endDate': 'Oct. 2019',
       'elapsedTime': '8 months',
       'description': '',
       'tasks': [
@@ -102,7 +119,7 @@
 
   //Experience: Profesional, Proficient, Beginner
   //Type: Frontend, Backend, Libraries? (Vuetify, Pinia, Bootstrap), Mobile, Database, Testing, Tools
-  const techSkills = ref([
+  const techSkills = ref<Skill[]>([
     {
       'name': 'Laravel',
       'icon': 'mdi-laravel',
@@ -118,7 +135,7 @@
     {
       'name': 'Angular',
       'icon': 'mdi-angular',
-      'experience': 'Proficient',
+      'experience': 'Beginner',
       'type': 'Frontend',
     },
 
@@ -141,7 +158,7 @@
       'type': 'Programming Language',
     },
     {
-      'name': 'C#',
+      'name': 'C Sharp',
       'icon': 'mdi-language-csharp',
       'experience': 'Proficient',
       'type': 'Programming Language',
@@ -186,4 +203,11 @@
       'type': 'Database',
     },
   ]);
+
+  const techSkillsGrouped = computed(() => techSkills.value.reduce((acc: any, cur) => {
+    let key = cur['experience'];
+    if (!acc[key]) acc[key] = [];
+    acc[key].push(cur);
+    return acc;
+  }, {}) as { [key: string]: Skill[] });
 </script>

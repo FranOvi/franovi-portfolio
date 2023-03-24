@@ -11,7 +11,7 @@
           </v-btn>
         </v-col>
         <v-col cols="5" class="text-center">
-          <div class="position-relative" style="width: 460px">
+          <div ref="cardRef" class="card-hover-effect position-relative" style="width: 460px;">
             <img src="/portrait.png" />
             <img src="/decorator-shape-1.svg" class="portrait-shapes" />
           </div>
@@ -53,7 +53,7 @@
   </v-card>
 
 
-    <div class="d-flex justify-space-around align-center flex-column flex-sm-row fill-height my-4">
+    <!-- <div class="d-flex justify-space-around align-center flex-column flex-sm-row fill-height my-4">
       <v-btn color="primary">btn primary</v-btn>
       <v-btn color="secondary">btn secondary</v-btn>
       <v-btn color="error">btn error</v-btn>
@@ -104,11 +104,40 @@
     <div class="bg-success">bg success</div>
     <div class="bg-warning">bg warning</div>
 
-    <v-sheet>testing sheet</v-sheet>
+    <v-sheet>testing sheet</v-sheet> -->
   </v-container>
 </template>
 
 <script lang="ts" setup>
+  import { ref, onMounted } from 'vue';
+
+  const cardRef = ref();
+
+  function handleHover(e: any) {
+    const THRESHOLD = 15;
+    const { clientX, clientY, currentTarget } = e;
+    const { clientWidth, clientHeight, offsetLeft, offsetTop } = currentTarget;
+
+    const horizontal = (clientX - offsetLeft) / clientWidth;
+    const vertical = (clientY - offsetTop) / clientHeight;
+    const rotateX = (THRESHOLD / 2 - horizontal * THRESHOLD).toFixed(2);
+    const rotateY = (vertical * THRESHOLD - THRESHOLD / 2).toFixed(2);
+
+    if (cardRef?.value) cardRef.value.style.transform = `perspective(${clientWidth}px) rotateX(${rotateY}deg) rotateY(${rotateX}deg) scale3d(1, 1, 1)`;
+  }
+
+  function resetStyles(e: any) {
+    if (cardRef?.value) cardRef.value.style.transform = `perspective(${e.currentTarget.clientWidth}px) rotateX(0deg) rotateY(0deg)`;
+  }
+
+  onMounted(() => {
+    const motionMatchMedia = window.matchMedia("(prefers-reduced-motion)");
+
+    if (!motionMatchMedia.matches) {
+      cardRef?.value?.addEventListener("mousemove", handleHover);
+      cardRef?.value?.addEventListener("mouseleave", resetStyles);
+    }
+  });
 </script>
 <style scoped>
   .portrait-shapes {
@@ -117,6 +146,9 @@
     width: 140px;
     right: 20px;
     bottom: -10px;
+
+    z-index: 1;
+    transition: transform 0.3s ease;
   }
 
   .bg-main-section {
@@ -130,5 +162,26 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+  }
+
+  .card-hover-effect {
+    transition: transform 0.1s ease;
+    transform-style: preserve-3d;
+    will-change: transform;
+  }
+
+  .card-hover-effect::before {
+    content: "";
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+  }
+
+  .card-hover-effect:hover .portrait-shapes {
+    transform: translateZ(24px);
   }
 </style>
