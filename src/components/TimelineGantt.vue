@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div style="overflow-x: hidden;">
+    <div style="overflow-x: hidden; touch-action: none;">
       <div ref="ganttTimelineRef" class="position-relative" style="height:260px; width: 200%;">
         <div @click="showDialog=true" class="position-absolute bg-error rounded-xl mt-1 py-1 px-2" style="height:30px; top: 0px; left: 75.58%; width: 24.41%;">Implement HIT</div>
         <div @click="showDialog=true" class="position-absolute bg-error rounded-xl mt-1 py-1 px-2" style="height:30px; top: 40px; left: 55.81%; width: 5.81%;">Fitness Core Center</div>

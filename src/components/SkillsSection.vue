@@ -5,28 +5,42 @@
 
     <TimelineGantt></TimelineGantt>
 
-    <v-timeline side="end">
+    <v-timeline side="end" truncate-line="both">
       <v-timeline-item
         v-for="experience in experiences"
         :key="experience.id"
-        size="small"
+        :fill-dot="false"
+        size="x-small"
+        class="grid-stretch"
       >
-        <template v-slot:opposite>
+        <!-- <template v-slot:opposite>
           <p>
             {{ experience.startDate }} - {{ experience.endDate }}
           </p>
           <span class="text-caption">({{ experience.elapsedTime }})</span>
-        </template>
-        <div class="text-h5">{{ experience.company }}</div>
-        <div class="text-h6">{{ experience.position }} </div>
-        <p>
-          {{ experience.description}}
-          <ul v-if="experience.tasks">
-            <li v-for="task in experience.tasks">
-              {{ task }}
-            </li>
-          </ul>
-        </p>
+        </template> -->
+        <v-card @click="expandId = experience.id" class="elevation-2">
+          <v-card-title class="text-h6 bg-white">
+            {{ experience.position }} - {{ experience.company }}
+          </v-card-title>
+          <v-card-subtitle class="text-caption bg-white">
+            {{ experience.startDate }} - {{ experience.endDate }} ({{ experience.elapsedTime }})
+          </v-card-subtitle>
+          <v-card-text class="text-caption bg-white">
+            <p class="my-2 text-subtitle-1">{{ experience.description}}</p>
+            <v-expand-transition>
+              <div v-show="expandId === experience.id">
+                <v-divider class="mb-1"></v-divider>
+                <ul class="ms-4 text-subtitle-1">
+                  <li v-for="task in experience.tasks">
+                    {{ task }}
+                  </li>
+                </ul>
+              </div>
+            </v-expand-transition>
+          </v-card-text>
+        </v-card>
+
       </v-timeline-item>
     </v-timeline>
 
@@ -57,6 +71,8 @@
   import { ref, computed } from 'vue';
   import type { Experience } from '@/types/experience';
   import type { Skill } from '@/types/skill';
+
+  const expandId = ref('');
 
   const experiences = ref<Experience[]>([
     {
@@ -211,3 +227,8 @@
     return acc;
   }, {}) as { [key: string]: Skill[] });
 </script>
+<style scoped>
+  .grid-stretch :deep(.v-timeline-item__body) {
+    justify-self: stretch !important;
+  }
+</style>

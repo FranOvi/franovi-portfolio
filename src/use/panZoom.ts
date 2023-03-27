@@ -64,7 +64,7 @@ export default function usePanZoom(
       isPointerMovedScroll.value = false;
     }
 
-    scale.value = Math.max(1, scale.value - e.deltaY * 0.005);
+    scale.value = Math.max(1, scale.value - e.deltaY * 0.0025);
     if (targetElement.value) targetElement.value.style.width = `${scale.value * 100}%`;
 
     const width = targetElement.value?.getBoundingClientRect().width ?? 0;
