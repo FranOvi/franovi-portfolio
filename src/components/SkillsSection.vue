@@ -3,9 +3,11 @@
     <h2>Skills</h2>
     <h3>Professional Experience</h3>
 
-    <TimelineGantt></TimelineGantt>
+    <div>
 
-    <v-timeline side="end" truncate-line="both">
+    <TimelineGantt @selectExpand="(id: string) => selectExpandId(id)"></TimelineGantt>
+
+    <v-timeline side="end" justify="start" truncate-line="both">
       <v-timeline-item
         v-for="experience in experiences"
         :key="experience.id"
@@ -13,36 +15,32 @@
         size="x-small"
         class="grid-stretch"
       >
-        <!-- <template v-slot:opposite>
-          <p>
-            {{ experience.startDate }} - {{ experience.endDate }}
-          </p>
-          <span class="text-caption">({{ experience.elapsedTime }})</span>
-        </template> -->
-        <v-card @click="expandId = experience.id" class="elevation-2">
-          <v-card-title class="text-h6 bg-white">
+        <v-card @click="selectExpandId(experience.id)"
+          class="elevation-0" color="white"
+        >
+          <v-card-title class="text-h6">
             {{ experience.position }} - {{ experience.company }}
           </v-card-title>
-          <v-card-subtitle class="text-caption bg-white">
+          <v-card-subtitle class="text-caption">
             {{ experience.startDate }} - {{ experience.endDate }} ({{ experience.elapsedTime }})
           </v-card-subtitle>
-          <v-card-text class="text-caption bg-white">
-            <p class="my-2 text-subtitle-1">{{ experience.description}}</p>
-            <v-expand-transition>
-              <div v-show="expandId === experience.id">
-                <v-divider class="mb-1"></v-divider>
-                <ul class="ms-4 text-subtitle-1">
-                  <li v-for="task in experience.tasks">
-                    {{ task }}
-                  </li>
-                </ul>
-              </div>
-            </v-expand-transition>
-          </v-card-text>
+
+          <v-expand-transition>
+            <v-card-text v-show="expandId === experience.id">
+              <v-divider class="mb-1"></v-divider>
+              <p class="my-2 text-subtitle-1">{{ experience.description}}</p>
+              <ul class="ms-4 text-subtitle-1">
+                <li v-for="task in experience.tasks">
+                  {{ task }}
+                </li>
+              </ul>
+            </v-card-text>
+          </v-expand-transition>
         </v-card>
 
       </v-timeline-item>
     </v-timeline>
+    </div>
 
     <h3>Languages</h3>
     <v-chip-group>
@@ -54,9 +52,23 @@
       </v-chip>
     </v-chip-group>
 
-    <h3>Tech Skills</h3>
+    <v-row dense>
+      <v-col cols="12" sm>
+        <h3>Tech Skills</h3>
+      </v-col>
+      <v-col sm="auto">
+        <div class="d-flex flex-row">
+          <div class="my-2 me-3">Group by</div>
+          <v-select
+            v-model="toggle"
+            :items="[{ title: 'Experience', value: 'experience' }, { title: 'Type', value: 'type' }]"
+            item-title="title" item-value="value" single-line variant="solo" density="compact" hide-details
+          />
+        </div>
+      </v-col>
+    </v-row>
     <div v-for="(skills, group) in techSkillsGrouped">
-      {{ group }}
+      <div class="text-subtitle-2">{{ group }}</div>
       <v-chip-group>
         <v-chip v-for="skill in skills" :prepend-icon="skill.icon" size="large">
           {{ skill.name }}
@@ -72,7 +84,9 @@
   import type { Experience } from '@/types/experience';
   import type { Skill } from '@/types/skill';
 
+  const toggle = ref<'experience'|'type'>('experience');
   const expandId = ref('');
+  const selectExpandId = (id: string) => expandId.value = (expandId.value === id ? '' : id);
 
   const experiences = ref<Experience[]>([
     {
@@ -221,7 +235,7 @@
   ]);
 
   const techSkillsGrouped = computed(() => techSkills.value.reduce((acc: any, cur) => {
-    let key = cur['experience'];
+    let key = cur[toggle.value];
     if (!acc[key]) acc[key] = [];
     acc[key].push(cur);
     return acc;
@@ -229,6 +243,6 @@
 </script>
 <style scoped>
   .grid-stretch :deep(.v-timeline-item__body) {
-    justify-self: stretch !important;
+    width: 70vw;
   }
 </style>
