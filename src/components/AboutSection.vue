@@ -11,7 +11,7 @@
           </v-btn>
         </v-col>
         <v-col cols="12" md="5" class="text-center">
-          <div ref="cardRef" class="card-hover-effect position-relative" style="width: 460px;">
+          <div ref="cardRef" class="card-hover-effect position-relative" :style="`width: ${mobile  ? '250px' : '460px'};`">
             <img src="/portrait.png" />
             <img src="/decorator-shape-1.svg" class="portrait-shapes" />
           </div>
@@ -86,8 +86,10 @@
 </template>
 
 <script lang="ts" setup>
+  import { useDisplay } from 'vuetify';
   import { ref, onMounted } from 'vue';
 
+  const { mobile } = useDisplay();
   const cardRef = ref();
 
   function handleHover(e: any) {
