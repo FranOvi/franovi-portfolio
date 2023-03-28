@@ -1,8 +1,8 @@
 <template>
   <div class="map" id="map"></div>
 </template>
-<script setup>
-import { ref, inject } from "vue";
+<script lang="ts" setup>
+import { ref } from "vue";
 
 const props = defineProps({
     msg: { type: String, required: true },
@@ -12,7 +12,8 @@ const props = defineProps({
 })
 
 const map = ref();
-const key = 'AIzaSyC-XKM4M5JRa54NW5xkjaR9rLkaC-vjcPU';//inject("GOOGLE_MAP_API_KEY");
+
+const key = process.env.VITE_GOOGLE_MAP_API_KEY;
 
 // INITIALIZE GOOGLEMAPS
 (() => {
@@ -34,12 +35,11 @@ const key = 'AIzaSyC-XKM4M5JRa54NW5xkjaR9rLkaC-vjcPU';//inject("GOOGLE_MAP_API_K
 // from the callback, initialize the map when we know
 // the script is loaded
 window.initMap = () => {
-  map.value = new google.maps.Map(document.getElementById("map"), {
+  map.value = new google.maps.Map(document.getElementById("map") as HTMLElement, {
     zoom: props?.zoom || 8,
     center: {lat: props.lat, lng: props.lng},
-    disableDefaultUI: props?.disableDefaultUI || false,
-    mapTypeId: props?.mapType,
-  });
+    disableDefaultUI: true
+  } as google.maps.MapOptions);
 
   map.value.setOptions({ styles: customTheme });
 };
@@ -106,16 +106,9 @@ const customTheme = [
 
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
 .map {
   width: 100%;
   height: 300px;
-  /*color: #6600ff;
-  color: #5e00ff;
-  color: #1900ff;
-
-  color: #f1f0fe;
-  color: #353454;*/
 }
 </style>

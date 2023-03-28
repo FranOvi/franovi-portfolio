@@ -16,7 +16,11 @@
     "lib": ["esnext", "dom"],
     "types": [
       "node",
-      "vuetify"
+      "vuetify",
+      "google.maps"
+    ],
+    "typeRoots": [
+      "./types"
     ],
     "paths": {
       "@/*": ["src/*"]
