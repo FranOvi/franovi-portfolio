@@ -13,7 +13,7 @@ const props = defineProps({
 
 const map = ref();
 
-const key = process.env.VITE_GOOGLE_MAP_API_KEY;
+const key = import.meta.env.VITE_GOOGLE_MAP_API_KEY;
 
 // INITIALIZE GOOGLEMAPS
 (() => {
