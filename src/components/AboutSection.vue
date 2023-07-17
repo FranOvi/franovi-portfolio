@@ -21,68 +21,81 @@
 
   </v-container>
   <v-container class="py-16">
-    <v-card class="mx-auto">
-      <v-card-text>
-        <p>I graduated from Universidad Centroamericana (UCA), Nicaragua, 2021, with a bachelors in Systems Engineering.</p>
-        <p>I have 3 years of experience as a fullstack developer focusing on Laravel and Vue.js.</p>
-        <p>I recide in Nicaragua in latin america, I'm open to work fulltime.</p>
-      </v-card-text>
-    </v-card>
-
-
-    <!-- <div class="d-flex justify-space-around align-center flex-column flex-sm-row fill-height my-4">
-      <v-btn color="primary">btn primary</v-btn>
-      <v-btn color="secondary">btn secondary</v-btn>
-      <v-btn color="error">btn error</v-btn>
-      <v-btn color="info">btn info</v-btn>
-      <v-btn color="success">btn success</v-btn>
-      <v-btn color="warning">btn warning</v-btn>
-    </div>
-
-    <div class="d-flex justify-space-around align-center flex-column flex-sm-row fill-height my-4">
-      <v-btn variant="flat" color="primary">btn primary</v-btn>
-      <v-btn variant="flat" color="secondary">btn secondary</v-btn>
-      <v-btn variant="flat" color="error">btn error</v-btn>
-      <v-btn variant="flat" color="info">btn info</v-btn>
-      <v-btn variant="flat" color="success">btn success</v-btn>
-      <v-btn variant="flat" color="warning">btn warning</v-btn>
-    </div>
-
-    <div class="d-flex justify-space-around align-center flex-column flex-sm-row fill-height my-4">
-      <v-btn variant="outlined" color="primary">btn primary</v-btn>
-      <v-btn variant="outlined" color="secondary">btn secondary</v-btn>
-      <v-btn variant="outlined" color="error">btn error</v-btn>
-      <v-btn variant="outlined" color="info">btn info</v-btn>
-      <v-btn variant="outlined" color="success">btn success</v-btn>
-      <v-btn variant="outlined" color="warning">btn warning</v-btn>
-    </div>
-
-    <div class="d-flex justify-space-around align-center flex-column flex-sm-row fill-height my-4">
-      <v-btn variant="tonal" color="primary">btn primary</v-btn>
-      <v-btn variant="tonal" color="secondary">btn secondary</v-btn>
-      <v-btn variant="tonal" color="error">btn error</v-btn>
-      <v-btn variant="tonal" color="info">btn info</v-btn>
-      <v-btn variant="tonal" color="success">btn success</v-btn>
-      <v-btn variant="tonal" color="warning">btn warning</v-btn>
-    </div>
-
-    <p class="text-primary">text primary</p>
-    <p class="text-secondary">text secondary</p>
-    <p class="text-error">text error</p>
-    <p class="text-info">text info</p>
-    <p class="text-success">text success</p>
-    <p class="text-warning">text warning</p>
-
-
-    <div class="bg-primary">bg primary</div>
-    <div class="bg-secondary">bg secondary</div>
-    <div class="bg-error">bg error</div>
-    <div class="bg-info">bg info</div>
-    <div class="bg-success">bg success</div>
-    <div class="bg-warning">bg warning</div>
-
-    <v-sheet>testing sheet</v-sheet> -->
+    <h2>About Me</h2>
+    <v-row>
+      <v-col cols="12" lg="9" xl="6">
+        <v-sheet>
+          <p class="text-body-1 text-justify mb-3">My name is Francisco Oviedo, I am a Mid Fullstack Developer. I graduated from Universidad Centroamericana (UCA), Nicaragua in 2021, with a bachelors in Systems Engineering.</p>
+          <p class="text-body-1 text-justify mb-3">With a passion for web development and 3+ years of experience in Laravel and Vue.js, I strive to create high-quality, efficient, and user-friendly web applications.</p>
+          <p class="text-body-1 text-justify mb-3">I recide in Nicaragua in latin america, I'm open to work fulltime.</p>
+        </v-sheet>
+      </v-col>
+      <v-col cols="12" lg="3" xl="3">
+        <div class="d-flex flex-wrap justify-space-between" style="gap: 30px">
+          <v-sheet class="pa-2 flex-fill">
+            <div class="text-h4">
+              4<span class="text-primary">+</span>
+            </div>
+            Years experience
+          </v-sheet>
+          <v-sheet class="pa-2 flex-fill">
+            <div class="text-h4">
+              20<span class="text-primary">+</span>
+            </div>
+            Proyects
+          </v-sheet>
+          <v-sheet class="pa-2 flex-fill">
+            <div class="text-h4">
+              10<span class="text-primary">+</span>
+            </div>
+            Tech Skills
+          </v-sheet>
+        </div>
+      </v-col>
+    </v-row>
   </v-container>
+  <div class="bg-surface-variation">
+    <v-container class="py-16">
+      <v-row>
+        <v-col cols="12" md="6" lg="3">
+          <v-card>
+            <v-card-item>
+              <v-icon icon="mdi-puzzle-outline"></v-icon>
+              <h4 class="mt-12">Problem Solving</h4>
+              <p class="my-2 text-medium-emphasis">Analytical thinking to solve challenges</p>
+            </v-card-item>
+          </v-card>
+        </v-col>
+        <v-col cols="12" md="6" lg="3">
+          <v-card>
+            <v-card-item>
+              <v-icon icon="mdi-head-lightbulb-outline"></v-icon>
+              <h4 class="mt-12">Creativity</h4>
+              <p class="my-2 text-medium-emphasis">Outside the box thinking to come up with innovative solutions</p>
+            </v-card-item>
+          </v-card>
+        </v-col>
+        <v-col cols="12" md="6" lg="3">
+          <v-card>
+            <v-card-item>
+              <v-icon icon="mdi-account-supervisor-circle-outline"></v-icon>
+              <h4 class="mt-12">Leadership</h4>
+              <p class="my-2 text-medium-emphasis">Guide and support teams towards a common goal</p>
+            </v-card-item>
+          </v-card>
+        </v-col>
+        <v-col cols="12" md="6" lg="3">
+          <v-card>
+            <v-card-item>
+              <v-icon icon="mdi-account-group-outline"></v-icon><!-- mdi-crowd -->
+              <h4 class="mt-12">Team Player</h4>
+              <p class="my-2 text-medium-emphasis">Communicate and collaborate with others in a team enviroment</p>
+            </v-card-item>
+          </v-card>
+        </v-col>
+    </v-row>
+    </v-container>
+  </div>
 </template>
 
 <script lang="ts" setup>
@@ -133,6 +146,7 @@
   .bg-main-section {
     min-height: 600px;
     background: linear-gradient(90deg, rgb(var(--v-theme-background)) 55%, rgb(var(--v-theme-surface)) 45%);
+    /* radial-gradient(circle at top right, rgb(var(--v-theme-surface)) 48%, rgb(var(--v-theme-background)) 0); */
   }
 
   .text-gradient {
@@ -142,6 +156,8 @@
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
+
+  /*--clr-gradient: linear-gradient( -90deg, var(--clr-primary), var(--clr-secondary) );*/
 
   .card-hover-effect {
     transition: transform 0.1s ease;

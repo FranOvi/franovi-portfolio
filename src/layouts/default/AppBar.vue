@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar app class="appBar" :density="scrolled ? 'compact' : 'comfortable'" :flat="!scrolled" :color="scrolled ? 'dark' : 'transparent'">
+  <v-app-bar app class="appBar" :density="scrolled ? 'compact' : 'comfortable'" :flat="!scrolled" :color="scrolled ? 'blur' : 'transparent'">
     <template v-slot:prepend>
       <v-app-bar-nav-icon class="hidden-sm-and-up" @click.stop="showDrawer = !showDrawer"></v-app-bar-nav-icon>
     </template>
@@ -67,5 +67,10 @@ const links = ref([
     transition-property: background, box-shadow, height, border-radius;
     transition-duration: 0.2s;
     transition-timing-function: linear;
+  }
+
+  .bg-blur {
+    background-color: rgb(255 255 255/0.5)!important;
+    backdrop-filter: blur(14px);
   }
 </style>

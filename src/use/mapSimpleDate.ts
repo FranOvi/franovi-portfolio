@@ -14,5 +14,9 @@ export default function useMapSimpleDate(startDate: SimpleDate, endDate: SimpleD
     return (value.year - 2000) * 12 + value.month;
   }
 
+  function formatDate(value: SimpleDate): number {
+    return (value.year - 2000) * 12 + value.month;
+  }
+
   return { mapSimpleDate };
 }

@@ -75,6 +75,7 @@
         </v-col>
         <v-col>
           <p>linked in | torre | github | gitlab | stackoverflow</p>
+          <p>Developed by Francisco Oviedo © 2023</p>
         </v-col>
       </v-row>
     </v-container>

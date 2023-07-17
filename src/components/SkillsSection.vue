@@ -7,34 +7,45 @@
 
     <TimelineGantt @selectExpand="(id: string) => selectExpandId(id)"></TimelineGantt>
 
-    <v-timeline side="end" justify="start" truncate-line="both">
+    <v-timeline side="end" justify="start" truncate-line="both" style="grid-template-columns: 1fr 0fr 6fr;">
       <v-timeline-item
         v-for="experience in experiences"
         :key="experience.id"
         :fill-dot="false"
         size="x-small"
-        class="grid-stretch"
       >
+        <template v-slot:opposite>
+          <span class="text-caption">
+            2019 - 2020
+            <v-tooltip location="bottom" activator="parent">
+              {{ dateRangeFormatted(experience.startDate, experience.endDate) }}
+            </v-tooltip>
+          </span>
+        </template>
         <v-card @click="selectExpandId(experience.id)"
-          class="elevation-0" color="white"
+          :id="`experience-card-${experience.id}`"
+          class="elevation-0"
         >
           <v-card-title class="text-h6">
-            {{ experience.position }} - {{ experience.company }}
+            {{ experience.position }}
           </v-card-title>
           <v-card-subtitle class="text-caption">
-            {{ experience.startDate }} - {{ experience.endDate }} ({{ experience.elapsedTime }})
+            {{ experience.company }}
+            <!-- {{ experience.startDate }} - {{ experience.endDate }} ({{ experience.elapsedTime }}) -->
           </v-card-subtitle>
 
           <v-expand-transition>
-            <v-card-text v-show="expandId === experience.id">
-              <v-divider class="mb-1"></v-divider>
-              <p class="my-2 text-subtitle-1">{{ experience.description}}</p>
-              <ul class="ms-4 text-subtitle-1">
-                <li v-for="task in experience.tasks">
-                  {{ task }}
-                </li>
-              </ul>
-            </v-card-text>
+            <div v-show="expandId === experience.id">
+              <v-card-text>
+                <v-divider class="mb-1"></v-divider>
+                <p class="my-2 text-subtitle-1">{{ experience.description}}</p>
+                <ul class="ms-4 text-subtitle-1">
+                  <li v-for="task in experience.tasks">
+                    {{ task }}
+                  </li>
+                </ul>
+              </v-card-text>
+            </div>
           </v-expand-transition>
         </v-card>
 
@@ -68,7 +79,7 @@
       </v-col>
     </v-row>
     <div v-for="(skills, group) in techSkillsGrouped">
-      <div class="text-subtitle-2">{{ group }}</div>
+      <div class="text-subtitle-2 mt-2">{{ group }} <v-badge :content="skills.length" inline></v-badge></div>
       <v-chip-group>
         <v-chip v-for="skill in skills" :prepend-icon="skill.icon" size="large">
           {{ skill.name }}
@@ -80,22 +91,40 @@
 
 <script lang="ts" setup>
   import TimelineGantt from '@/components/TimelineGantt.vue'
+  import dayjs from 'dayjs';
   import { ref, computed } from 'vue';
   import type { Experience } from '@/types/experience';
   import type { Skill } from '@/types/skill';
 
   const toggle = ref<'experience'|'type'>('experience');
   const expandId = ref('');
-  const selectExpandId = (id: string) => expandId.value = (expandId.value === id ? '' : id);
+  //const selectExpandId = (id: string) => expandId.value = (expandId.value === id ? '' : id);
+
+  const selectExpandId = (id: string) => {
+    const oldElement = document.getElementById(`experience-card-${expandId.value}`);
+    const element = document.getElementById(`experience-card-${id}`);
+    expandId.value = (expandId.value === id ? '' : id);
+
+    //Cheating a little bit. I know px will be the height after transition
+    //TODO Al cambiar entre items en el accordion (Experiences) se debe hacer scroll de ser necesario para que no quede fuera de vista el item seleccionado
+    if (oldElement && element && (oldElement?.offsetTop ?? 0) < element.offsetTop) {
+      window.scrollTo({
+        behavior: 'smooth',
+        top:
+          oldElement.getBoundingClientRect().top +
+          window.pageYOffset +
+          -300 + 68,
+      })
+    }
+  };
 
   const experiences = ref<Experience[]>([
     {
       'id': 'implementhit',
       'company': 'ImplementHIT',
       'position': 'Mid. Fullstack Developer',
-      'startDate': 'Jun. 2021',
-      'endDate': 'Current',
-      'elapsedTime': '1 year 10 months',
+      'startDate': '2021-06-01', //'Jun. 2021', //2021-06-1
+      'endDate': undefined, //Current null
       'description': 'Fullstack developer for a US based company, developed multiple applications with the Laravel and Vue.js stack of technologies.',
       'tasks': [
         'Developed applications to companies in the USA medical sector.',
@@ -109,9 +138,8 @@
       'id': 'telesoft',
       'company': 'VitalPBX',
       'position': 'Jr. Developer',
-      'startDate': 'Nov. 2019',
-      'endDate': 'Jun. 2021',
-      'elapsedTime': '1 year 10 months',
+      'startDate': 'Oct. 2019',
+      'endDate': 'May. 2021',
       'description': 'Develop multiple applications with the Laravel and Vue.js stack of technologies.',
       'tasks': [
         'Developed an SPA in Vue with Laravel, for collaborative project translations.',
@@ -126,7 +154,6 @@
       'position': 'Intern Jr. Fullstack Developer',
       'startDate': 'Jan. 2020',
       'endDate': 'Jun. 2020',
-      'elapsedTime': '6 months',
       'description': '',
       'tasks': [
         'Developed a web platform to manage a gym and exercise routines, using Angular with a Laravel Web API',
@@ -136,9 +163,8 @@
       'id': 'beebusiness',
       'company': 'Bee Business Suite',
       'position': 'Intern Jr. Developer',
-      'startDate': 'Mar. 2019',
-      'endDate': 'Oct. 2019',
-      'elapsedTime': '8 months',
+      'startDate': 'Feb. 2019',
+      'endDate': 'Sep. 2019',
       'description': '',
       'tasks': [
         'Desktop ERP development in .Net Framework.',
@@ -146,6 +172,21 @@
       ],
     },
   ]);
+
+  function dateRangeFormatted(date1?: string, date2?: string): string {
+    let startDate = dayjs(date1);
+    let endDate = dayjs(date2).endOf('month');
+
+    const sameYear = startDate.year() === endDate.year();
+    const monthDiff = Math.round(endDate.diff(startDate, 'month', true));
+    const years = Math.floor(monthDiff / 12);
+    const months = monthDiff % 12;
+
+    return startDate.format(sameYear ? 'MMM' : 'MMM YYYY') + ' - '
+      + endDate.format('MMM YYYY') + ' ('
+      + (years ? `${years} years ` : '')
+      + (months ? `${months} months)` : ')')
+  }
 
   //Experience: Profesional, Proficient, Beginner
   //Type: Frontend, Backend, Libraries? (Vuetify, Pinia, Bootstrap), Mobile, Database, Testing, Tools
@@ -179,6 +220,12 @@
       'name': 'JavaScript',
       'icon': 'mdi-language-javascript',
       'experience': 'Profesional',
+      'type': 'Programming Language', //web
+    },
+    {
+      'name': 'TypeScript',
+      'icon': 'mdi-language-typescript',
+      'experience': 'Proficient',
       'type': 'Programming Language', //web
     },
     {
@@ -232,6 +279,11 @@
       'experience': 'Proficient',
       'type': 'Database',
     },
+    //WebApi
+    //phpunit Jira bitbucket
+    //Herramientas vscode datagrip Jira Postman Vmware
+    //Mover git github fuera de database
+    //Apache Redis
   ]);
 
   const techSkillsGrouped = computed(() => techSkills.value.reduce((acc: any, cur) => {
@@ -239,10 +291,10 @@
     if (!acc[key]) acc[key] = [];
     acc[key].push(cur);
     return acc;
-  }, {}) as { [key: string]: Skill[] });
+  }, toggle.value === 'experience' ? {'Profesional': [], 'Proficient': [], 'Beginner': []} : {}) as { [key: string]: Skill[] });
 </script>
 <style scoped>
-  .grid-stretch :deep(.v-timeline-item__body) {
-    width: 70vw;
+  :deep(.v-timeline-item__body) {
+    width: 100%;
   }
 </style>

@@ -22,7 +22,7 @@ export default function usePanZoom(
   const isPointerDown = ref(false);
   //For Scroll
   const isPointerMovedScroll = ref(false);
-  const mousePositionScrollRatio = ref(0.0);
+  const mouseRatio = ref(0.0);
 
   const onPointerDown = function(e: PointerEvent) {
     isPointerDown.value = true;
@@ -55,21 +55,21 @@ export default function usePanZoom(
   };
 
   const onScroll = function(e: WheelEvent) {
+    if (!e.ctrlKey) return;
+
     e.preventDefault();
 
-    const mousePosition = e.clientX;
-    if (isPointerMovedScroll.value) {
-      const { left = 0, width = 0 } = targetElement.value?.getBoundingClientRect() ?? {};
-      mousePositionScrollRatio.value = (mousePosition - left) / width;
-      isPointerMovedScroll.value = false;
-    }
+    const mouseX = e.clientX;
+    let { left = 0, width = 0 } = targetElement.value?.getBoundingClientRect() ?? {};
+    mouseRatio.value = (mouseX - left) / width;
 
     scale.value = Math.max(1, scale.value - e.deltaY * 0.0025);
     if (targetElement.value) targetElement.value.style.width = `${scale.value * 100}%`;
 
-    const width = targetElement.value?.getBoundingClientRect().width ?? 0;
-    const scrolLeft = (width * mousePositionScrollRatio.value) - mousePosition;
-    if (containerElement?.value) containerElement.value.scrollLeft = Math.round(scrolLeft);
+    width = targetElement.value?.getBoundingClientRect().width ?? 0;
+    const scrollLeft = (width * mouseRatio.value) - mouseX;
+
+    if (containerElement?.value) containerElement.value.scrollLeft = Math.round(scrollLeft);
   };
 
   onMounted(() => {
