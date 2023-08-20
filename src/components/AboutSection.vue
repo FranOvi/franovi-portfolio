@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid tag="section" id="section-about" class="bg-main-section h-screen ma-0 pa-0 d-flex align-center">
+  <v-container fluid tag="section" id="section-about" :class="{'h-screen': !mobile}" class="bg-main-section ma-0 pa-0 d-flex align-center">
     <v-container>
       <v-row>
         <v-col cols="12" md="7" class="mt-16">
@@ -118,14 +118,29 @@
     if (cardRef?.value) cardRef.value.style.transform = `perspective(${clientWidth}px) rotateX(${rotateY}deg) rotateY(${rotateX}deg) scale3d(1, 1, 1)`;
   }
 
+  function handleOrientation(e: any) {
+    const THRESHOLD = 15;
+    const { beta, gamma } = e;
+
+    const horizontal = gamma / 90;
+    const vertical = (beta - 90) / 90;
+    const rotateX = (THRESHOLD / 2 - horizontal * THRESHOLD).toFixed(2);
+    const rotateY = (vertical * THRESHOLD - THRESHOLD / 2).toFixed(2);
+
+    if (cardRef?.value) cardRef.value.style.transform = `perspective(${375}px) rotateX(${rotateY}deg) rotateY(${rotateX}deg) scale3d(1, 1, 1)`;
+  }
+
   function resetStyles(e: any) {
     if (cardRef?.value) cardRef.value.style.transform = `perspective(${e.currentTarget.clientWidth}px) rotateX(0deg) rotateY(0deg)`;
   }
 
   onMounted(() => {
     const motionMatchMedia = window.matchMedia("(prefers-reduced-motion)");
+    if (motionMatchMedia.matches) return;
 
-    if (!motionMatchMedia.matches) {
+    if (window.DeviceOrientationEvent && 'ontouchstart' in window) {
+      window.addEventListener("deviceorientation", handleOrientation);
+    } else {
       cardRef?.value?.addEventListener("mousemove", handleHover);
       cardRef?.value?.addEventListener("mouseleave", resetStyles);
     }
