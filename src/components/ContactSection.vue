@@ -3,7 +3,7 @@
     <h2>Contact Me</h2>
     <v-row dense>
       <v-col cols="12" md="6">
-        <v-list lines="one" bg-color="white" density="comfortable">
+        <v-list lines="one" bg-color="background" density="comfortable">
           <v-list-item class="py-4" href="tel:50584007149" title="Phone" subtitle="(+505) 8400-7149">
             <template v-slot:prepend>
               <v-avatar color="primary">
@@ -30,7 +30,7 @@
         <SimpleGoogleMap msg="Hello" :zoom="12" :lat="12.1311784" :lng="-86.2547645" />
       </v-col>
       <v-col cols="12" md="6">
-        <v-card class="mx-auto" color="white">
+        <v-card class="mx-auto" color="background">
           <v-card-text>
             <p class="my-4">Please fill out the form on this section to contact with me.</p>
 
@@ -58,19 +58,17 @@
       </v-col>
     </v-row>
   </v-container>
-  <v-container fluid tag="section" id="section-footer" class="bg-dark h-screen ma-0 pa-0 d-flex align-center">
+  <v-container fluid tag="section" id="section-footer" class="bg-dark py-10 ma-0 pa-0 d-flex align-center">
     <v-container>
       <v-row>
         <v-col cols="12" md="6">
           <p>Francisco Jose Oviedo Juarez</p>
           <p>(+505) 8400-7149</p>
           <p>Email franciscoviedojr@gmail.com</p>
-          <p>whatsapp (+505) 8400-7149</p>
-          <p>telegram t.me/bla bla</p>
         </v-col>
         <v-col cols="12" md="6">
           <p>My projects</p>
-          <p>My blog?</p>
+          <p>My blog</p>
           <p>Download curriculum / resume</p>
         </v-col>
         <v-col>

@@ -2,9 +2,9 @@
   <v-container fluid tag="section" id="section-about" :class="{'h-screen': !mobile}" class="bg-main-section ma-0 pa-0 d-flex align-center">
     <v-container>
       <v-row>
-        <v-col cols="12" md="7" class="mt-16">
-          <p class="font-weight-bold text-dark">Hello there, I'm</p>
-          <h1 class="text-h2 font-weight-bold text-dark">Francisco Oviedo</h1>
+        <v-col cols="12" md="7" class="mt-16 bg-surface">
+          <p class="font-weight-bold">Hello there, I'm</p>
+          <h1 class="text-h2 font-weight-bold">Francisco Oviedo</h1>
           <h4 class="text-h3 font-weight-bold mt-4 text-gradient">Mid Fullstack Developer</h4>
           <v-btn class="text-capitalize mt-8" color="error" variant="flat">
             Let's talk
@@ -58,36 +58,36 @@
     <v-container class="py-16">
       <v-row>
         <v-col cols="12" md="6" lg="3">
-          <v-card>
+          <v-card class="fill-height">
             <v-card-item>
-              <v-icon icon="mdi-puzzle-outline"></v-icon>
+              <v-icon size="x-large" icon="mdi-puzzle-outline"></v-icon>
               <h4 class="mt-12">Problem Solving</h4>
               <p class="my-2 text-medium-emphasis">Analytical thinking to solve challenges</p>
             </v-card-item>
           </v-card>
         </v-col>
         <v-col cols="12" md="6" lg="3">
-          <v-card>
+          <v-card class="fill-height">
             <v-card-item>
-              <v-icon icon="mdi-head-lightbulb-outline"></v-icon>
+              <v-icon size="x-large" icon="mdi-head-lightbulb-outline"></v-icon>
               <h4 class="mt-12">Creativity</h4>
               <p class="my-2 text-medium-emphasis">Outside the box thinking to come up with innovative solutions</p>
             </v-card-item>
           </v-card>
         </v-col>
         <v-col cols="12" md="6" lg="3">
-          <v-card>
+          <v-card class="fill-height">
             <v-card-item>
-              <v-icon icon="mdi-account-supervisor-circle-outline"></v-icon>
+              <v-icon size="x-large" icon="mdi-account-supervisor-circle-outline"></v-icon>
               <h4 class="mt-12">Leadership</h4>
               <p class="my-2 text-medium-emphasis">Guide and support teams towards a common goal</p>
             </v-card-item>
           </v-card>
         </v-col>
         <v-col cols="12" md="6" lg="3">
-          <v-card>
+          <v-card class="fill-height">
             <v-card-item>
-              <v-icon icon="mdi-account-group-outline"></v-icon><!-- mdi-crowd -->
+              <v-icon size="x-large" icon="mdi-account-group-outline"></v-icon><!-- mdi-crowd -->
               <h4 class="mt-12">Team Player</h4>
               <p class="my-2 text-medium-emphasis">Communicate and collaborate with others in a team enviroment</p>
             </v-card-item>

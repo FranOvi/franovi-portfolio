@@ -3,4 +3,5 @@ export interface Skill {
   icon: string,
   experience: string,
   type: string,
+  color: string|undefined
 }

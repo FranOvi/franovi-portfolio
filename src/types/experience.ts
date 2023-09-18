@@ -1,9 +1,19 @@
+import { SimpleDate } from "./simpleDate";
+
 export interface Experience {
   id: string,
-  company: string,
-  position: string,
-  startDate: string | undefined,
-  endDate: string | undefined,
+  type: 'job' | 'education',
+  organization: string, //company, university
+  name: string, //position, career, program, proyect
+  startDate: SimpleDate,
+  endDate: SimpleDate,
   description: string,
   tasks: string[],
 }
+/*
+organization? Universidad Centroamericana
+name Systems Engineering
+
+organization? Bee Business Suite
+name Intern Jr. Developer
+*/
