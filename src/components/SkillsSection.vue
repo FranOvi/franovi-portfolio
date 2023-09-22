@@ -85,11 +85,13 @@
         <div class="text-subtitle-2 mt-2">{{ group }} <v-badge :content="skills.length" inline></v-badge></div>
 
         <v-row dense class="py-3">
-          <v-col v-for="skill in skills" cols="12" sm="6" md="4">
+          <v-col v-for="skill in skills" cols="6" md="4">
             <v-hover v-slot="{ isHovering, props }">
-              <v-list-item :active="isHovering" :active-color="skill.color" class="w-100 py-2" variant="tonal" rounded="xl" v-bind="props">
+              <v-list-item :active="isHovering" :color="skill.color" class="w-100 py-2" variant="tonal" rounded="xl" density="comfortable" v-bind="props">
                 <template v-slot:prepend>
-                  <v-icon class="mr-4" :icon="skill.icon" size="x-large"/>
+                  <span class="mr-4">
+                    <v-icon :icon="skill.icon" size="x-large"/>
+                  </span>
                 </template>
                 <v-list-item-title>{{ skill.name }}</v-list-item-title>
                 <v-list-item-subtitle>5 projects</v-list-item-subtitle>
