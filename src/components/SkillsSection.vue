@@ -5,7 +5,7 @@
 
     <div>
 
-    <TimelineGantt @selectExpand="(id: string) => selectExpandId(id)"></TimelineGantt>
+    <TimelineGantt class="mb-10" @selectExpand="(id: string) => selectExpandId(id)"></TimelineGantt>
 
     <v-timeline side="end" justify="start" truncate-line="both" style="grid-template-columns: 1fr 0fr 6fr;">
       <v-timeline-item
@@ -155,7 +155,7 @@
       'icon': 'mdi-laravel',
       'experience': 'Profesional',
       'type': 'Backend',
-      'color': 'red-accent-4',
+      'color': 'red-darken-2',
     },
     {
       'name': 'Vue.js',
@@ -177,7 +177,7 @@
       'icon': 'mdi-language-php',
       'experience': 'Profesional',
       'type': 'Programming Language', //web
-      'color': 'deep-purple-darken-2',
+      'color': 'deep-purple-accent-1',
     },
     {
       'name': 'JavaScript',
@@ -205,7 +205,7 @@
       'icon': 'mdi-language-csharp',
       'experience': 'Proficient',
       'type': 'Programming Language',
-      'color': 'deep-purple-darken-4',
+      'color': 'deep-purple-accent-1',
     },
 
     {
@@ -228,14 +228,14 @@
       'icon': 'mdi-database',
       'experience': 'Proficient',
       'type': 'Database',
-      'color': 'indigo-darken-2',
+      'color': 'indigo-accent-2',
     },
     {
       'name': 'Microsoft SQL',
       'icon': 'mdi-database',
       'experience': 'Proficient',
       'type': 'Database',
-      'color': 'red-accent-4',
+      'color': 'red-darken-2',
     },
 
     {
@@ -250,7 +250,7 @@
       'icon': 'mdi-github',
       'experience': 'Proficient',
       'type': 'Database',
-      'color': 'black',
+      'color': 'blue-grey',
     },
     //WebApi
     //phpunit Jira bitbucket

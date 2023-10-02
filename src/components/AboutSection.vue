@@ -58,7 +58,7 @@
     <v-container class="py-16">
       <v-row>
         <v-col cols="12" md="6" lg="3">
-          <v-card class="fill-height">
+          <v-card class="fill-height hover-grow">
             <v-card-item>
               <v-icon size="x-large" icon="mdi-puzzle-outline"></v-icon>
               <h4 class="mt-12">Problem Solving</h4>
@@ -67,7 +67,7 @@
           </v-card>
         </v-col>
         <v-col cols="12" md="6" lg="3">
-          <v-card class="fill-height">
+          <v-card class="fill-height hover-grow">
             <v-card-item>
               <v-icon size="x-large" icon="mdi-head-lightbulb-outline"></v-icon>
               <h4 class="mt-12">Creativity</h4>
@@ -76,7 +76,7 @@
           </v-card>
         </v-col>
         <v-col cols="12" md="6" lg="3">
-          <v-card class="fill-height">
+          <v-card class="fill-height hover-grow">
             <v-card-item>
               <v-icon size="x-large" icon="mdi-account-supervisor-circle-outline"></v-icon>
               <h4 class="mt-12">Leadership</h4>
@@ -85,7 +85,7 @@
           </v-card>
         </v-col>
         <v-col cols="12" md="6" lg="3">
-          <v-card class="fill-height">
+          <v-card class="fill-height hover-grow">
             <v-card-item>
               <v-icon size="x-large" icon="mdi-account-group-outline"></v-icon><!-- mdi-crowd -->
               <h4 class="mt-12">Team Player</h4>
@@ -193,5 +193,13 @@
 
   .card-hover-effect:hover .portrait-shapes {
     transform: translateZ(24px);
+  }
+
+  .hover-grow {
+    transition: transform .2s ease-in-out;
+  }
+
+  .hover-grow:hover {
+    transform: scale(1.1);
   }
 </style>

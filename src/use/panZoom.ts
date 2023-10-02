@@ -63,23 +63,37 @@ export default function usePanZoom(
 
   const onScroll = function(e: WheelEvent) {
     if (!e.ctrlKey) return;
-
     e.preventDefault();
 
     const mouseX = e.clientX;
     let { left = 0, width = 0 } = targetElement.value?.getBoundingClientRect() ?? {};
     const { left: containerLeft = 0 } = containerElement?.value?.getBoundingClientRect() ?? {};
-    mouseRatio.value = (mouseX - left) / width;
+    const ratio = (mouseX - left) / width;
 
-    scale.value = Math.max(1, scale.value - e.deltaY * 0.01);
+    zoom(ratio, e.deltaY, mouseX - containerLeft)
+  };
+
+  const zoomUp = function() {
+    const { width = 0 } = containerElement?.value?.getBoundingClientRect() ?? {};
+    zoom(0.5, -100, width/2);
+  }
+
+  const zoomDown = function() {
+    const { width = 0 } = containerElement?.value?.getBoundingClientRect() ?? {};
+    zoom(0.5, 100, width/2);
+  }
+
+  const zoom = function(ratio: number, deltaY: number, mouseInContainer: number) {
+    mouseRatio.value = ratio;
+
+    scale.value = Math.min(5, Math.max(1, scale.value - deltaY * 0.01));
     transitionVector.value[0] = scale.value;
     if (targetElement.value) targetElement.value.style.width = `${scale.value * 100}%`;
 
-    width = targetElement.value?.getBoundingClientRect().width ?? 0;
-    const scrollLeft = Math.round((width * mouseRatio.value) - (mouseX - containerLeft));
+    let width = targetElement.value?.getBoundingClientRect().width ?? 0;
+    const scrollLeft = Math.round((width * mouseRatio.value) - mouseInContainer);
     transitionVector.value[1] = scrollLeft;
-    //if (containerElement?.value) containerElement.value.scrollLeft = scrollLeft
-  };
+  }
 
   onMounted(() => {
     targetElement.value?.addEventListener('pointerdown', (e: PointerEvent) => onPointerDown(e));
@@ -99,6 +113,9 @@ export default function usePanZoom(
     posStart: readonly(posStart),
     posEnd: readonly(posEnd),
     distanceX,
-    distanceY
+    distanceY,
+    scale,
+    zoomUp,
+    zoomDown
   }
 }
