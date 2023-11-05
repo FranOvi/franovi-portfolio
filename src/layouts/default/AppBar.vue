@@ -6,17 +6,16 @@
     </template>
 
     <v-app-bar-title>
-      <svg width="34" height="20"><use xlink:href="/logo-mono.svg#logo" :style="{fill: theme.current.value.colors['on-surface']}"></use></svg>
-
-      <span class="ml-2" style="vertical-align: text-bottom;">FranOvi</span>
+      <svg width="34" height="20"><use xlink:href="/logo-mono.svg#logo" style="vertical-align: text-top;" :style="{fill: theme.current.value.colors['on-surface']}"></use></svg>
+      <!-- <span class="ml-2" style="vertical-align: text-bottom;">FranOvi</span> -->
     </v-app-bar-title>
     <v-spacer/>
 
     <v-toolbar-items class="hidden-xs">
       <v-btn v-for="link in links" variant="plain" class="text-capitalize"
         :key="link.path"
-        :to="`#section-${link.path}`"
-        @click.prevent="scrollTo(link.path)"
+        :href="`#${link.path}`"
+
       >
         {{ link.title }}
       </v-btn>
@@ -47,29 +46,26 @@ const scrolled = ref(false);
 
 document.addEventListener("scroll", () => scrolled.value = window.scrollY > 50)
 
-const scrollTo = (refName: string) => {
-  //TODO No deberia ser por este metodo. Solo con el link deberia funcionar.
-  const element = document.getElementById(`section-${refName}`);
-  console.log(element);
-  element?.scrollIntoView({ behavior: "smooth" });
-}
-
 const links = ref([
   {
+    'title': 'Home',
+    'path': 'section-home',
+  },
+  {
     'title': 'About',
-    'path': 'about',
+    'path': 'section-about',
   },
   {
     'title': 'Skills',
-    'path': 'skills',
+    'path': 'section-skills',
   },
   {
     'title': 'Projects',
-    'path': 'projects',
+    'path': 'section-projects',
   },
   {
     'title': 'Contact',
-    'path': 'contact',
+    'path': 'section-contact',
   },
 ]);
 </script>

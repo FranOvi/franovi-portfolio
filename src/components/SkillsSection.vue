@@ -65,15 +65,17 @@
 
       <v-row dense>
         <v-col cols="12" sm>
-          <h3>Tech Skills</h3>
+          <h3 class="mt-3">
+            Tech Skills <v-badge v-if="toggle === ''" :content="techSkills.length" inline></v-badge>
+          </h3>
         </v-col>
         <v-col sm="auto">
           <div class="d-flex flex-row">
             <div class="my-2 me-3">Group by</div>
             <v-select
               v-model="toggle"
-              :items="[{ title: 'Experience', value: 'experience' }, { title: 'Type', value: 'type' }]"
-              item-title="title" item-value="value" single-line variant="solo" density="compact" hide-details
+              :items="[{ title: 'None', value: '' }, { title: 'Experience', value: 'experience' }, { title: 'Type', value: 'type' }]"
+              item-title="title" item-value="value" single-line variant="solo-filled" density="compact" hide-details
             />
           </div>
         </v-col>
@@ -82,12 +84,12 @@
 
 
       <div v-for="(skills, group) in techSkillsGrouped">
-        <div class="text-subtitle-2 mt-2">{{ group }} <v-badge :content="skills.length" inline></v-badge></div>
+        <div v-if="toggle !== ''" class="text-subtitle-2 mt-2">{{ group }} <v-badge :content="skills.length" inline></v-badge></div>
 
         <v-row dense class="py-3">
-          <v-col v-for="skill in skills" cols="6" md="4">
+          <v-col v-for="skill in skills" cols="6" md="4" xl="3">
             <v-hover v-slot="{ isHovering, props }">
-              <v-list-item :active="isHovering" :color="skill.color" class="w-100 py-2" variant="tonal" rounded="xl" density="comfortable" v-bind="props">
+              <v-list-item :active="isHovering" :color="skill.color" class="w-100 py-2" variant="tonal" rounded="lg" density="comfortable" v-bind="props">
                 <template v-slot:prepend>
                   <span class="mr-4">
                     <v-icon :icon="skill.icon" size="x-large"/>
@@ -113,7 +115,7 @@
   import { Month } from '@/types/monthEnum';
   import { ref, computed } from 'vue';
 
-  const toggle = ref<'experience'|'type'>('experience');
+  const toggle = ref<''|'experience'|'type'>('');
   const expandId = ref('');
   //const selectExpandId = (id: string) => expandId.value = (expandId.value === id ? '' : id);
 
@@ -260,7 +262,7 @@
   ]);
 
   const techSkillsGrouped = computed(() => techSkills.value.reduce((acc: any, cur) => {
-    let key = cur[toggle.value];
+    let key = toggle.value === '' ? 'All' : cur[toggle.value];
     if (!acc[key]) acc[key] = [];
     acc[key].push(cur);
     return acc;

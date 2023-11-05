@@ -1,5 +1,5 @@
 <template>
-  <v-container class="py-16">
+  <v-container class="py-16" id="section-contact">
     <h2>Contact Me</h2>
     <v-row dense>
       <v-col cols="12" md="6">
@@ -115,6 +115,9 @@ onMounted(() => {
     userAgent: fromStorage('identifier-userAgent', navigator.userAgent),
     timezone: fromStorage('identifier-timezone', Intl.DateTimeFormat().resolvedOptions().timeZone)
   }
+  //'vendor:'+navigator.vendor + '|screen:' + window.screen.colorDepth + ',' + window.screen.width + ',' + window.screen.height + '|memory:' + navigator.deviceMemory + '|languages:' + navigator.languages.join(',')
+
+  //fetch('https://ipapi.co/json/').then(d => d.json()).then(d => console.log(d))
 
   fetch('https://script.google.com/macros/s/AKfycbx_s6QiXl6sOA4rxk3DFeg-41uQA8rIWXzeqfeZoMH2t_5hYyoZpM8Mj6B3LKV8XN9AvQ/exec?form=activity', {
     method: "POST",

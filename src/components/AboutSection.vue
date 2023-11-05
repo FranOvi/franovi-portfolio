@@ -1,14 +1,20 @@
 <template>
-  <v-container fluid tag="section" id="section-about" :class="{'h-screen': !mobile}" class="bg-main-section ma-0 pa-0 d-flex align-center">
-    <v-container>
+  <v-container fluid tag="section" id="section-home" :class="{'h-screen': !mobile}" class="bg-main-section ma-0 pa-0 d-flex flex-column align-center">
+    <v-container class="my-auto">
       <v-row>
         <v-col cols="12" md="7" class="mt-16 bg-surface">
           <p class="font-weight-bold">Hello there, I'm</p>
           <h1 class="text-h2 font-weight-bold">Francisco Oviedo</h1>
           <h4 class="text-h3 font-weight-bold mt-4 text-gradient">Mid Fullstack Developer</h4>
-          <v-btn class="text-capitalize mt-8" color="error" variant="flat">
-            Let's talk
-          </v-btn>
+          <div class="mt-8">
+            <v-btn href="#section-contact" class="text-capitalize" color="error" variant="flat">
+              Let's talk
+            </v-btn>
+            <v-btn href="https://www.linkedin.com/in/francisco-oviedo-fjoj" target="_blank"
+              class="ml-4" icon="mdi-linkedin" size="x-large" density="compact" variant="text" />
+            <v-btn href="https://github.com/FranOvi" target="_blank"
+              class="ml-1" icon="mdi-github" size="x-large" density="compact" variant="text" />
+          </div>
         </v-col>
         <v-col cols="12" md="5" class="text-center">
           <div ref="cardRef" class="card-hover-effect position-relative" :style="`width: ${mobile  ? '250px' : '460px'};`">
@@ -18,16 +24,20 @@
         </v-col>
       </v-row>
     </v-container>
+    <div class="mb-4">
+      Scroll down
+      <v-icon icon="mdi-arrow-down"></v-icon>
+    </div>
 
   </v-container>
-  <v-container class="py-16">
+  <v-container class="py-16" id="section-about">
     <h2>About Me</h2>
     <v-row>
       <v-col cols="12" lg="9" xl="6">
         <v-sheet>
-          <p class="text-body-1 text-justify mb-3">My name is Francisco Oviedo, I am a Mid Fullstack Developer. I graduated from Universidad Centroamericana (UCA), Nicaragua in 2021, with a bachelors in Systems Engineering.</p>
+          <p class="text-body-1 text-justify mb-3">My name is Francisco Oviedo, I am a Mid Fullstack Developer. I graduated from Universidad Centroamericana (UCA), Nicaragua in 2021, with a bachelor in Systems Engineering.</p>
           <p class="text-body-1 text-justify mb-3">With a passion for web development and 3+ years of experience in Laravel and Vue.js, I strive to create high-quality, efficient, and user-friendly web applications.</p>
-          <p class="text-body-1 text-justify mb-3">I recide in Nicaragua in latin america, I'm open to work fulltime.</p>
+          <p class="text-body-1 text-justify mb-3">I recide in Nicaragua in Latin America, I'm open to work remotely.</p>
         </v-sheet>
       </v-col>
       <v-col cols="12" lg="3" xl="3">
@@ -58,11 +68,11 @@
     <v-container class="py-16">
       <v-row>
         <v-col cols="12" md="6" lg="3">
-          <v-card class="fill-height hover-grow">
+          <v-card class="fill-height hover-grow" color="dark">
             <v-card-item>
               <v-icon size="x-large" icon="mdi-puzzle-outline"></v-icon>
               <h4 class="mt-12">Problem Solving</h4>
-              <p class="my-2 text-medium-emphasis">Analytical thinking to solve challenges</p>
+              <p class="my-2">Analytical thinking to solve challenges</p>
             </v-card-item>
           </v-card>
         </v-col>
