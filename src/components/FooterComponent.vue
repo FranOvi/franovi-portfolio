@@ -16,12 +16,12 @@
         <v-col cols="12" sm="4" lg="2">
           <p class="text-deep-purple-lighten-3 font-weight-black mb-3">Contact Me</p>
           <ul style="list-style: none; line-height:2.2">
-            <li><a class="text-decoration-none text-white" href="https://www.linkedin.com/in/francisco-oviedo-fjoj">Linked In</a></li>
-            <li><a class="text-decoration-none text-white" href="https://torre.ai/franciscoviedojr">Torre</a></li>
-            <li><a class="text-decoration-none text-white" href="https://github.com/FranOvi">Github</a></li>
-            <li><a class="text-decoration-none text-white" href="https://gitlab.com/FranciscoOviedo">Gitlab</a></li>
-            <li><a class="text-decoration-none text-white" href="https://stackoverflow.com/users/13171199/francisco-jos%c3%a9-oviedo-ju%c3%a1rez">Stack Overflow</a></li>
-            <li><a class="text-decoration-none text-white" href="https://www.instagram.com/francisco_oviedo_codeart/">Instagram</a></li>
+            <li><a class="text-decoration-none text-white" href="https://www.linkedin.com/in/francisco-oviedo-fjoj" target="_blank">Linked In</a></li>
+            <li><a class="text-decoration-none text-white" href="https://torre.ai/franciscoviedojr" target="_blank">Torre</a></li>
+            <li><a class="text-decoration-none text-white" href="https://github.com/FranOvi" target="_blank">Github</a></li>
+            <li><a class="text-decoration-none text-white" href="https://gitlab.com/FranciscoOviedo" target="_blank">Gitlab</a></li>
+            <li><a class="text-decoration-none text-white" href="https://stackoverflow.com/users/13171199/francisco-jos%c3%a9-oviedo-ju%c3%a1rez" target="_blank">Stack Overflow</a></li>
+            <li><a class="text-decoration-none text-white" href="https://www.instagram.com/francisco_oviedo_codeart/" target="_blank">Instagram</a></li>
           </ul>
         </v-col>
         <v-col cols="12" sm="4" lg="2">
@@ -38,7 +38,7 @@
           <p class="text-deep-purple-lighten-3 font-weight-black mb-3">Extra</p>
           <ul style="list-style: none; line-height:2.2">
             <li>My projects</li>
-            <li><a class="text-decoration-none text-white" href="/franovi-portfolio/Curriculum 2024 Francisco (en).pdf">Resume</a></li>
+            <li><a class="text-decoration-none text-white" href="/franovi-portfolio/Curriculum 2024 Francisco (en).pdf" target="_blank">Resume</a></li>
           </ul>
         </v-col>
         <v-col>
