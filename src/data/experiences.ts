@@ -22,7 +22,7 @@ const experiences: Experience[] = [
         "id": "telesoft",
         "type": "job",
         "organization": "VitalPBX",
-        "name": "Jr. Developer",
+        "name": "Jr. Fullstack Developer",
         "startDate": { "year": 2019, "month": 10 },
         "endDate": { "year": 2021, "month": 5 },
         "description": "Develop multiple applications with the Laravel and Vue.js stack of technologies.",
@@ -36,7 +36,7 @@ const experiences: Experience[] = [
         "id": "fitnesscorecenter",
         "type": "job",
         "organization": "Fitness Core Center",
-        "name": "Intern Jr. Fullstack Developer",
+        "name": "Intern Jr. Developer",
         "startDate": { "year": 2020, "month": 1 },
         "endDate": { "year": 2020, "month": 6 },
         "description": "",
@@ -64,10 +64,13 @@ const experiences: Experience[] = [
         "name": "Systems Engineering",
         "startDate": { "year": 2016, "month": 1 },
         "endDate": { "year": 2021, "month": 6 },
-        "description": "",
+        "description": "A career that has a professional academic profile with a technological focus, based on certified international references such as ACM, AIS and IEEE. Equipping individuals with a broad set of knowledge and skills, preparing them to address complex challenges in designing, developing, and managing large-scale systems.",
         "tasks": [
-            "Desktop ERP development in .Net Framework.",
-            "Created multiple reports with Active Reports."
+            "Learnt about mutiple software development methodologies and paradigms.",
+            "Applied the life cycle of a system, from conception and design to implementation, operation, and eventual retirement.",
+            "Gathered, analyzed, and documented requirements from stakeholders.",
+            "Defined system architecture models, and other project documentation.",
+            "Developed desktop, mobile and web applications."
         ]
     }
 ];

@@ -10,10 +10,3 @@ export interface Experience {
   description: string,
   tasks: string[],
 }
-/*
-organization? Universidad Centroamericana
-name Systems Engineering
-
-organization? Bee Business Suite
-name Intern Jr. Developer
-*/

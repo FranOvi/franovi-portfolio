@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid tag="section" id="section-home" :class="{'h-screen': !mobile}" class="bg-main-section ma-0 pa-0 d-flex flex-column align-center">
+  <v-container fluid tag="section" id="section-home" :class="{'h-screen': !mobile}" class="bg-main-section ma-0 pa-0 d-flex flex-column align-center position-relative">
     <v-container class="my-auto">
       <v-row>
         <v-col cols="12" md="7" class="mt-16 bg-surface">
@@ -7,13 +7,20 @@
           <h1 class="text-h2 font-weight-bold">Francisco Oviedo</h1>
           <h4 class="text-h3 font-weight-bold mt-4 text-gradient">Mid Fullstack Developer</h4>
           <div class="mt-8">
-            <v-btn href="#section-contact" class="text-capitalize" color="error" variant="flat">
+            <v-btn href="#section-contact" class="text-capitalize" color="error" variant="flat" rounded size="large">
               Let's talk
             </v-btn>
+            <v-btn href="/Curriculum 2024 Francisco (en).pdf" target="_blank" class="text-capitalize ml-2" color="error" variant="text" rounded size="large">
+              Resume
+            </v-btn>
+          </div>
+          <div class="mt-6">
             <v-btn href="https://www.linkedin.com/in/francisco-oviedo-fjoj" target="_blank"
-              class="ml-4" icon="mdi-linkedin" size="x-large" density="compact" variant="text" />
+              class="ml-0" icon="mdi-linkedin" size="x-large" density="compact" variant="text" />
             <v-btn href="https://github.com/FranOvi" target="_blank"
-              class="ml-1" icon="mdi-github" size="x-large" density="compact" variant="text" />
+              class="ml-2" icon="mdi-github" size="x-large" density="compact" variant="text" />
+            <v-btn href="https://stackoverflow.com/users/13171199/francisco-jos%c3%a9-oviedo-ju%c3%a1rez" target="_blank"
+              class="ml-2" icon="mdi-stack-overflow" size="x-large" density="compact" variant="text" />
           </div>
         </v-col>
         <v-col cols="12" md="5" class="text-center">
@@ -24,51 +31,55 @@
         </v-col>
       </v-row>
     </v-container>
-    <div class="mb-4">
-      Scroll down
-      <v-icon icon="mdi-arrow-down"></v-icon>
-    </div>
+    <v-btn v-if="!mobile" href="#section-about" class="position-absolute" rounded style="bottom: 10px;" stacked variant="text">
+      <template #prepend>
+        <v-icon icon="mdi-arrow-down" class="ml-2 scroll-indicator"></v-icon>
+      </template>
+      Scroll
+    </v-btn>
 
   </v-container>
   <v-container class="py-16" id="section-about">
-    <h2>About Me</h2>
+    <h2 class="mb-6">About Me</h2>
     <v-row>
-      <v-col cols="12" lg="9" xl="6">
+      <v-col cols="12" lg="8" xl="6">
         <v-sheet>
           <p class="text-body-1 text-justify mb-3">My name is Francisco Oviedo, I am a Mid Fullstack Developer. I graduated from Universidad Centroamericana (UCA), Nicaragua in 2021, with a bachelor in Systems Engineering.</p>
           <p class="text-body-1 text-justify mb-3">With a passion for web development and 3+ years of experience in Laravel and Vue.js, I strive to create high-quality, efficient, and user-friendly web applications.</p>
           <p class="text-body-1 text-justify mb-3">I recide in Nicaragua in Latin America, I'm open to work remotely.</p>
         </v-sheet>
       </v-col>
-      <v-col cols="12" lg="3" xl="3">
+      <v-spacer class="d-none d-lg-block"/>
+      <v-col cols="12" lg="2" xl="3">
         <div class="d-flex flex-wrap justify-space-between" style="gap: 30px">
           <v-sheet class="pa-2 flex-fill">
-            <div class="text-h4">
+            <div class="text-h4 font-weight-medium">
               4<span class="text-primary">+</span>
             </div>
-            Years experience
+            <span class="text-medium-emphasis">Years of experience</span>
           </v-sheet>
           <v-sheet class="pa-2 flex-fill">
-            <div class="text-h4">
+            <div class="text-h4 font-weight-medium">
               20<span class="text-primary">+</span>
             </div>
-            Proyects
+            <span class="text-medium-emphasis">Proyects</span>
           </v-sheet>
           <v-sheet class="pa-2 flex-fill">
-            <div class="text-h4">
+            <div class="text-h4 font-weight-medium">
               10<span class="text-primary">+</span>
             </div>
-            Tech Skills
+            <span class="text-medium-emphasis">Tech Skills</span>
           </v-sheet>
         </div>
       </v-col>
+      <v-spacer class="d-none d-xl-block"/>
     </v-row>
   </v-container>
   <div class="bg-surface-variation">
-    <v-container class="py-16">
+    <v-container class="py-16 my-6">
       <v-row>
         <v-col cols="12" md="6" lg="3">
-          <v-card class="fill-height hover-grow" color="dark">
+          <v-card class="fill-height card-metrics hover-grow py-2" color="dark">
             <v-card-item>
               <v-icon size="x-large" icon="mdi-puzzle-outline"></v-icon>
               <h4 class="mt-12">Problem Solving</h4>
@@ -77,7 +88,7 @@
           </v-card>
         </v-col>
         <v-col cols="12" md="6" lg="3">
-          <v-card class="fill-height hover-grow">
+          <v-card class="fill-height card-metrics hover-grow py-2">
             <v-card-item>
               <v-icon size="x-large" icon="mdi-head-lightbulb-outline"></v-icon>
               <h4 class="mt-12">Creativity</h4>
@@ -86,7 +97,7 @@
           </v-card>
         </v-col>
         <v-col cols="12" md="6" lg="3">
-          <v-card class="fill-height hover-grow">
+          <v-card class="fill-height card-metrics hover-grow py-2">
             <v-card-item>
               <v-icon size="x-large" icon="mdi-account-supervisor-circle-outline"></v-icon>
               <h4 class="mt-12">Leadership</h4>
@@ -95,7 +106,7 @@
           </v-card>
         </v-col>
         <v-col cols="12" md="6" lg="3">
-          <v-card class="fill-height hover-grow">
+          <v-card class="fill-height card-metrics hover-grow py-2">
             <v-card-item>
               <v-icon size="x-large" icon="mdi-account-group-outline"></v-icon><!-- mdi-crowd -->
               <h4 class="mt-12">Team Player</h4>
@@ -171,6 +182,7 @@
   .bg-main-section {
     min-height: 600px;
     background: linear-gradient(90deg, rgb(var(--v-theme-background)) 55%, rgb(var(--v-theme-surface)) 45%);
+    /* background: linear-gradient(0deg, rgb(var(--v-theme-surface)) 20%, rgb(237 173 237) 80%); */
     /* radial-gradient(circle at top right, rgb(var(--v-theme-surface)) 48%, rgb(var(--v-theme-background)) 0); */
   }
 
@@ -183,6 +195,11 @@
   }
 
   /*--clr-gradient: linear-gradient( -90deg, var(--clr-primary), var(--clr-secondary) );*/
+
+  .card-metrics {
+    border-radius: 20px;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+  }
 
   .card-hover-effect {
     transition: transform 0.1s ease;
@@ -211,5 +228,23 @@
 
   .hover-grow:hover {
     transform: scale(1.1);
+  }
+
+  .scroll-indicator {
+    animation: scroll-indicator 1.5s infinite;
+  }
+
+  @keyframes scroll-indicator {
+    0% {
+      transform: translate(0, -20px);
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      transform: translate(0, 0);
+      opacity: 0;
+    }
   }
 </style>

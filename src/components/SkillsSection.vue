@@ -7,18 +7,18 @@
 
     <TimelineGantt class="mb-10" @selectExpand="(id: string) => selectExpandId(id)"></TimelineGantt>
 
-    <v-timeline side="end" justify="start" truncate-line="both" style="grid-template-columns: 1fr 0fr 6fr;">
+    <v-timeline side="end" justify="start" truncate-line="both" :style="`grid-template-columns: ${mobile ? '0' : '1'}fr 0fr 6fr;`">
       <v-timeline-item
         v-for="experience in experiences"
         :key="experience.id"
-        :fill-dot="false"
+        :hide-opposite="mobile"
         size="x-small"
       >
         <template v-slot:opposite>
           <span class="text-caption text-blue-grey">
-            {{ (experience.startDate?.year ?? '') + ' - ' + (experience.endDate?.year ?? 'Now') }}
+            {{ experienceRangeFormat(experience, ShowFormat.Date | ShowFormat.Compact) }}
             <v-tooltip location="bottom" activator="parent">
-              {{ dateRangeFormatted(experience.startDate, experience.endDate) }}
+              {{ experienceRangeFormat(experience) }}
             </v-tooltip>
           </span>
         </template>
@@ -29,10 +29,12 @@
           <v-card-title class="text-h6 pt-0 pb-2">
             {{ experience.name }}
           </v-card-title>
-          <v-card-subtitle class="text-caption">
+          <v-card-subtitle class="text-subtitle-1">
             {{ experience.organization }}
-            <!-- {{ experience.startDate }} - {{ experience.endDate }} ({{ experience.elapsedTime }}) -->
           </v-card-subtitle>
+          <v-card-text class="text-caption text-medium-emphasis pt-1 pb-0 d-block d-lg-none">
+            {{ experienceRangeFormat(experience) }}
+          </v-card-text>
 
           <v-expand-transition>
             <div v-show="expandId === experience.id">
@@ -63,61 +65,63 @@
         </v-chip>
       </v-chip-group>
 
-      <v-row dense>
-        <v-col cols="12" sm>
-          <h3 class="mt-3">
-            Tech Skills <v-badge v-if="toggle === ''" :content="techSkills.length" inline></v-badge>
+      <v-row align="center" justify="center" dense>
+        <v-col cols="12">
+          <h3 class="mt-3 text-center">
+            <v-badge v-if="toggle === ''" :content="techSkills.length" inline><span class="mr-2">Tech Skills</span></v-badge>
+            <span v-else>Tech Skills</span>
           </h3>
         </v-col>
-        <v-col sm="auto">
-          <div class="d-flex flex-row">
-            <div class="my-2 me-3">Group by</div>
-            <v-select
-              v-model="toggle"
-              :items="[{ title: 'None', value: '' }, { title: 'Experience', value: 'experience' }, { title: 'Type', value: 'type' }]"
-              item-title="title" item-value="value" single-line variant="solo-filled" density="compact" hide-details
-            />
-          </div>
-        </v-col>
+        <v-btn-toggle v-model="toggle" border density="comfortable" divided style="border-radius: 25px;">
+          <v-btn value="">None</v-btn>
+          <v-btn value="experience">Experience</v-btn>
+          <v-btn value="type">Type</v-btn>
+        </v-btn-toggle>
       </v-row>
 
-
-
-      <div v-for="(skills, group) in techSkillsGrouped">
-        <div v-if="toggle !== ''" class="text-subtitle-2 mt-2">{{ group }} <v-badge :content="skills.length" inline></v-badge></div>
-
-        <v-row dense class="py-3">
-          <v-col v-for="skill in skills" cols="6" md="4" xl="3">
-            <v-hover v-slot="{ isHovering, props }">
-              <v-list-item :active="isHovering" :color="skill.color" class="w-100 py-2" variant="tonal" rounded="lg" density="comfortable" v-bind="props">
-                <template v-slot:prepend>
-                  <span class="mr-4">
-                    <v-icon :icon="skill.icon" size="x-large"/>
-                  </span>
-                </template>
-                <v-list-item-title>{{ skill.name }}</v-list-item-title>
-                <v-list-item-subtitle>5 projects</v-list-item-subtitle>
-              </v-list-item>
-            </v-hover>
-          </v-col>
-        </v-row>
-      </div>
-
+      <v-row dense class="py-3">
+        <transition-group name="list">
+          <template v-for="skill in techSkillsGrouped" :key="typeof(skill) === 'string' ? skill : skill.name">
+            <v-col v-if="typeof(skill) === 'string'" cols="12">
+              <div class="text-subtitle-2 mt-2">
+                <v-badge inline :content="techSkills.filter(s => skill === (s[toggle === '' ? 'experience' : toggle] ?? '')).length">
+                  <span class="mr-2">{{ skill }}</span>
+                </v-badge>
+              </div>
+            </v-col>
+            <v-col v-else cols="6" md="4" xl="3">
+              <v-hover v-slot="{ isHovering, props }">
+                <v-list-item :active="isHovering" :color="skill.color" class="w-100 py-2" variant="tonal" rounded="lg" density="comfortable" v-bind="props">
+                  <template v-slot:prepend>
+                    <span class="mr-4">
+                      <v-icon :icon="skill.icon" size="x-large"/>
+                    </span>
+                  </template>
+                  <v-list-item-title>{{ skill.name }}</v-list-item-title>
+                  <v-list-item-subtitle>5 projects</v-list-item-subtitle>
+                </v-list-item>
+              </v-hover>
+            </v-col>
+          </template>
+        </transition-group>
+      </v-row>
     </div>
   </v-container>
 </template>
 
 <script lang="ts" setup>
+  import useFormatSimpleDateRange from '@/use/formatSimpleDateRange';
   import TimelineGantt from '@/components/TimelineGantt.vue';
   import experiences from "@/data/experiences.ts";
-  import { SimpleDate } from '@/types/simpleDate';
   import type { Skill } from '@/types/skill';
-  import { Month } from '@/types/monthEnum';
+  import { ShowFormat } from '@/use/formatSimpleDateRange';
+  import { useDisplay } from 'vuetify';
   import { ref, computed } from 'vue';
 
+  const { experienceRangeFormat } = useFormatSimpleDateRange();
+  const { mobile } = useDisplay();
   const toggle = ref<''|'experience'|'type'>('');
-  const expandId = ref('');
-  //const selectExpandId = (id: string) => expandId.value = (expandId.value === id ? '' : id);
+  const expandId = ref('implementhit');
 
   const selectExpandId = (id: string) => {
     const oldElement = document.getElementById(`experience-card-${expandId.value}`);
@@ -137,21 +141,9 @@
     }
   };
 
-  function dateRangeFormatted(startDate: SimpleDate, endDate: SimpleDate): string {
-    const sameYear = startDate.year === endDate.year;
-    const monthDiff = ((endDate.year - startDate.year) * 12) + (endDate.month - startDate.month);
-    const years = Math.floor(monthDiff / 12);
-    const months = monthDiff % 12;
-
-    return (sameYear ? Month[startDate.month] : `${Month[startDate.month]} ${startDate.year}`) + ' - '
-      + `${Month[endDate.month]} ${endDate.year}` + ' ('
-      + (years ? `${years} years ` : '')
-      + (months ? `${months} months` : '') + ')'
-  }
-
   //Experience: Profesional, Proficient, Beginner
   //Type: Frontend, Backend, Libraries? (Vuetify, Pinia, Bootstrap), Mobile, Database, Testing, Tools
-  const techSkills = ref<Skill[]>([
+  const techSkills: Skill[] = [
     {
       'name': 'Laravel',
       'icon': 'mdi-laravel',
@@ -259,17 +251,44 @@
     //Herramientas vscode datagrip Jira Postman Vmware
     //Mover git github fuera de database
     //Apache Redis
-  ]);
+  ];
 
-  const techSkillsGrouped = computed(() => techSkills.value.reduce((acc: any, cur) => {
-    let key = toggle.value === '' ? 'All' : cur[toggle.value];
-    if (!acc[key]) acc[key] = [];
-    acc[key].push(cur);
-    return acc;
-  }, toggle.value === 'experience' ? {'Profesional': [], 'Proficient': [], 'Beginner': []} : {}) as { [key: string]: Skill[] });
+  const expComp = ['Profesional', 'Proficient', 'Beginner'];
+  const typeComp = ['Backend', 'Frontend', 'Web', 'Programming Language', 'Database'];
+  const sortSkill = (a: Skill, b: Skill): number => {
+    if (toggle.value === 'experience')  return expComp.indexOf(a.experience) - expComp.indexOf(b.experience);
+    if (toggle.value === 'type') return typeComp.indexOf(a.type) - typeComp.indexOf(b.type);
+    return 0;
+  }
+
+  const techSkillsGrouped = computed(() => toggle.value === '' ? techSkills : techSkills
+    .sort(sortSkill)
+    .reduce((acc: any, cur: Skill) => {
+      if (toggle.value === '') return acc;
+      if ((acc.length - 1) === -1 || (cur[toggle.value] !== (acc[acc.length - 1][toggle.value] ?? '')))
+        acc.push(cur[toggle.value]);
+      acc.push(cur);
+      return acc;
+    }, []) as (Skill|string)[]);
 </script>
 <style scoped>
   :deep(.v-timeline-item__body) {
     width: 100%;
+  }
+</style>
+<style>
+  .list-move,
+  .list-enter-active,
+  .list-leave-active {
+    transition: all 0.5s ease;
+  }
+
+  .list-enter-from,
+  .list-leave-to {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  .list-leave-active {
+    position: absolute;
   }
 </style>

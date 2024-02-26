@@ -14,9 +14,9 @@ import { createVuetify } from 'vuetify'
 const lightTheme = {
   dark: false,
   colors: {
-    background: '#fffbff',
-    surface: '#fffbff',
-    'surface-variation': '#f1f0fe',
+    background: '#fff7ff',
+    surface: '#fff7ff',
+    'surface-variation': '#ede0f4',
     dark: '#353454',
     primary: '#F7931E',
     'primary-darken-1': '#3700B3',
@@ -46,8 +46,8 @@ const darkTheme = {
     info: '#696AE9',
     success: '#22B573',
     warning: '#FCBE35',
-    'on-background': '#fffbff',
-    'on-surface': '#fffbff',
+    'on-background': '#fff7ff',
+    'on-surface': '#fff7ff',
   }
 }
 

@@ -2,9 +2,9 @@
   <v-container class="py-16" id="section-contact">
     <h2>Contact Me</h2>
     <v-row dense>
-      <v-col cols="12" md="6">
+      <v-col cols="12" lg="6">
         <v-list lines="one" bg-color="background" density="comfortable">
-          <v-list-item class="py-4" href="tel:50584007149" title="Phone" subtitle="(+505) 8400-7149">
+          <v-list-item class="py-4" href="tel:+50584007149" title="Phone" subtitle="(+505) 8400-7149">
             <template v-slot:prepend>
               <v-avatar color="primary">
                 <v-icon color="white">mdi-phone</v-icon>
@@ -29,16 +29,16 @@
         </v-list>
         <SimpleGoogleMap msg="Hello" :zoom="12" :lat="12.1311784" :lng="-86.2547645" />
       </v-col>
-      <v-col cols="12" md="6">
-        <v-card class="mx-auto" color="surface-variation">
+      <v-col cols="12" lg="6">
+        <v-card class="mx-auto pa-4 rounded-xl" color="surface-variation" elevation="16">
           <v-card-text>
-            <p class="my-4">Please fill out the form on this section to contact with me.</p>
+            <p class="my-4">You can fill out this form to contact with me.</p>
             <v-form ref="formRef" @submit.prevent="sendMessage">
               <v-row >
-                <v-col cols="12" md="6">
+                <v-col cols="12" sm="6">
                   <v-text-field v-model="form.firstName" label="First name" variant="outlined" hide-details="auto" required />
                 </v-col>
-                <v-col cols="12" md="6">
+                <v-col cols="12" sm="6">
                   <v-text-field v-model="form.lastName" label="Last name" variant="outlined" hide-details="auto" required />
                 </v-col>
                 <v-col cols="12">
@@ -48,7 +48,7 @@
                   <v-textarea v-model="form.message" :rules="messageRules" label="Write your message" variant="outlined" hide-details="auto" required />
                 </v-col>
                 <v-col>
-                  <v-btn type="submit" :loading="isLoading" class="text-capitalize" color="error" variant="flat">
+                  <v-btn type="submit" :loading="isLoading" class="text-capitalize" color="error" variant="flat" rounded>
                     Send message
                   </v-btn>
                 </v-col>
@@ -58,27 +58,6 @@
         </v-card>
       </v-col>
     </v-row>
-  </v-container>
-  <v-container fluid tag="section" id="section-footer" class="bg-dark py-10 ma-0 pa-0 d-flex align-center">
-    <v-container>
-      <v-row>
-        <v-col cols="12" md="6">
-          <p>Francisco Jose Oviedo Juarez</p>
-          <p>(+505) 8400-7149</p>
-          <p>Email franciscoviedojr@gmail.com</p>
-        </v-col>
-        <v-col cols="12" md="6">
-          <p>My projects</p>
-          <p>My blog</p>
-          <p>Download curriculum / resume</p>
-        </v-col>
-        <v-col>
-          <p>linked in | torre | github | gitlab | stackoverflow</p>
-          <p>Developed by Francisco Oviedo © 2023</p>
-        </v-col>
-      </v-row>
-    </v-container>
-
     <v-snackbar v-model="snackbar.show" :timeout="2000" :color="snackbar.color" rounded="pill">
       {{ snackbar.message }}
       <template v-slot:actions>
@@ -109,15 +88,21 @@ const snackbar = ref({
   color: 'primary'
 })
 
-onMounted(() => {
-  const data = {
-    id: fromStorage('identifier-uuid', crypto.randomUUID()),
-    userAgent: fromStorage('identifier-userAgent', navigator.userAgent),
-    timezone: fromStorage('identifier-timezone', Intl.DateTimeFormat().resolvedOptions().timeZone)
+onMounted(async () => {
+  let data: any = {};
+  if (localStorage.getItem('identifier-uuid') === null) {
+    const response = await fetch('https://ipapi.co/json/');
+    const resData = response.ok ? await response.json() : null;
+    const urlParams = new URLSearchParams(window.location.search);
+    data = {
+      ipAddress: fromStorage('identifier-ipaddress', resData?.ip),
+      country: fromStorage('identifier-country', resData ? (resData?.country_code_iso3 + ' - ' + resData?.country_name) : ''),
+      userAgent: fromStorage('identifier-userAgent', navigator.userAgent),
+      trackSource: fromStorage('identifier-source', urlParams.get('source') ?? ''),
+      timezone: fromStorage('identifier-timezone', Intl.DateTimeFormat().resolvedOptions().timeZone)
+    }
   }
-  //'vendor:'+navigator.vendor + '|screen:' + window.screen.colorDepth + ',' + window.screen.width + ',' + window.screen.height + '|memory:' + navigator.deviceMemory + '|languages:' + navigator.languages.join(',')
-
-  //fetch('https://ipapi.co/json/').then(d => d.json()).then(d => console.log(d))
+  data['uuid'] = fromStorage('identifier-uuid', crypto.randomUUID());
 
   fetch('https://script.google.com/macros/s/AKfycbx_s6QiXl6sOA4rxk3DFeg-41uQA8rIWXzeqfeZoMH2t_5hYyoZpM8Mj6B3LKV8XN9AvQ/exec?form=activity', {
     method: "POST",
@@ -141,7 +126,7 @@ const sendMessage = async () => {
     method: "POST",
     body: JSON.stringify(form.value),
   }).then(() => {
-    showSnackbar('success', 'Message sent succesfully.');
+    showSnackbar('success', 'Thanks for contacting me!. Your message was sent succesfully.');
     formRef.value?.reset();
   }).catch(() => {
     showSnackbar('error', 'An error ocurred when sending the message.');
