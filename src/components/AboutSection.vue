@@ -44,9 +44,9 @@
     <v-row>
       <v-col cols="12" lg="8" xl="6">
         <v-sheet>
-          <p class="text-body-1 text-justify mb-3">My name is Francisco Oviedo, I am a Mid Fullstack Developer. I graduated from Universidad Centroamericana (UCA), Nicaragua in 2021, with a bachelor in Systems Engineering.</p>
+          <p class="text-body-1 text-justify mb-3">My name is Francisco Oviedo, I am a Mid Fullstack Developer. Graduated from Universidad Centroamericana (UCA), Nicaragua in 2021, with a bachelor in Systems Engineering.</p>
           <p class="text-body-1 text-justify mb-3">With a passion for web development and 3+ years of experience in Laravel and Vue.js, I strive to create high-quality, efficient, and user-friendly web applications.</p>
-          <p class="text-body-1 text-justify mb-3">I recide in Nicaragua in Latin America, I'm open to work remotely.</p>
+          <p class="text-body-1 text-justify mb-3">I reside in Nicaragua in Latin America, I'm open to work remotely.</p>
         </v-sheet>
       </v-col>
       <v-spacer class="d-none d-lg-block"/>
