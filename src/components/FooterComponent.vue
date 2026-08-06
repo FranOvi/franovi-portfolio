@@ -43,7 +43,7 @@
         </v-col>
         <v-col>
           <v-divider class="mb-4"/>
-          <p class="text-center">Developed by Francisco Oviedo © 2024</p>
+          <p class="text-center">Developed by Francisco Oviedo © 2026</p>
         </v-col>
       </v-row>
     </v-container>
