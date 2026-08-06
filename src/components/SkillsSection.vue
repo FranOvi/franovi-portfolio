@@ -98,7 +98,7 @@
                     </span>
                   </template>
                   <v-list-item-title>{{ skill.name }}</v-list-item-title>
-                  <v-list-item-subtitle>5 projects</v-list-item-subtitle>
+                  <!-- <v-list-item-subtitle>5 projects</v-list-item-subtitle> -->
                 </v-list-item>
               </v-hover>
             </v-col>
@@ -152,6 +152,20 @@
       'color': 'red-darken-2',
     },
     {
+      'name': 'Node.js',
+      'icon': 'mdi-nodejs',
+      'experience': 'Beginner',
+      'type': 'Backend',
+      'color': 'green-darken-2',
+    },
+    {
+      'name': 'React.js',
+      'icon': 'mdi-react',
+      'experience': 'Profesional',
+      'type': 'Frontend',
+      'color': 'blue',
+    },
+    {
       'name': 'Vue.js',
       'icon': 'mdi-vuejs',
       'experience': 'Profesional',
@@ -183,7 +197,7 @@
     {
       'name': 'TypeScript',
       'icon': 'mdi-language-typescript',
-      'experience': 'Proficient',
+      'experience': 'Profesional',
       'type': 'Programming Language', //web
       'color': 'blue-darken-2',
     },
@@ -216,7 +230,20 @@
       'type': 'Web',
       'color': 'blue-darken-2',
     },
-
+    {
+      'name': 'Tailwind',
+      'icon': 'mdi-tailwind',
+      'experience': 'Profesional',
+      'type': 'Web',
+      'color': 'blue-grey',
+    },
+    {
+      'name': 'Bootstrap',
+      'icon': 'mdi-bootstrap',
+      'experience': 'Profesional',
+      'type': 'Web',
+      'color': 'indigo-accent-2',
+    },
     {
       'name': 'MySQL',
       'icon': 'mdi-database',
@@ -225,11 +252,11 @@
       'color': 'indigo-accent-2',
     },
     {
-      'name': 'Microsoft SQL',
-      'icon': 'mdi-database',
+      'name': 'PostgreSQL',
+      'icon': 'mdi-elephant',
       'experience': 'Proficient',
       'type': 'Database',
-      'color': 'red-darken-2',
+      'color': 'blue-darken-2',
     },
 
     {

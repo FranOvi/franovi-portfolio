@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar app class="appBar" :density="scrolled ? 'compact' : 'comfortable'" :flat="!scrolled"
+  <v-app-bar app class="appBar" :density="scrolled ? 'compact' : 'comfortable'" :flat="!scrolled" :elevation="scrolled ? 5 : 0"
     :color="scrolled ? (theme.global.current.value.dark ? 'blur-dark': 'blur') : 'transparent'">
     <template v-slot:prepend>
       <v-app-bar-nav-icon class="hidden-sm-and-up" @click.stop="showDrawer = !showDrawer"></v-app-bar-nav-icon>
@@ -19,7 +19,7 @@
       >
         {{ link.title }}
       </v-btn>
-      <v-btn @click="toggleTheme" :icon="theme.global.current.value.dark ? 'mdi-weather-sunny' : 'mdi-weather-night'" variant="tonal" rounded="x-large"></v-btn>
+      <v-btn @click="toggleTheme" :icon="theme.global.current.value.dark ? 'mdi-weather-sunny' : 'mdi-weather-night'" rounded="x-large"></v-btn>
     </v-toolbar-items>
   </v-app-bar>
   <v-navigation-drawer

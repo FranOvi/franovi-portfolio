@@ -3,19 +3,44 @@ import type { Experience } from '@/types/experience';
 const now = new Date();
 const experiences: Experience[] = [
     {
+        "id": "netdiligence",
+        "type": "job",
+        "organization": "NetDiligence (through Kubikware)",
+        "name": "Mid. Fullstack Developer",
+        "startDate": { "year": 2024, "month": 12 },
+        "endDate": { "year": now.getFullYear(), "month": now.getMonth() + 1 },
+        "description": "",
+        "tasks": [
+            "Migrated legacy platforms in the cybersecurity domain from vanilla PHP/jQuery to a modern Laravel + React stack, improving maintainability and development rate.",
+            "Applied Laravel best practices — resource and invokable controllers, clean architecture — to keep the codebase consistent and easy to extend. Integrated Meilisearch to power fast, relevant search functionality across the platform.",
+            "Leveraged AI tools (e.g., Copilot/Claude) to accelerate development, improve code quality, and streamline problem-solving workflows."
+        ]
+    },
+    {
+        "id": "goit",
+        "type": "job",
+        "organization": "GoIT",
+        "name": "Web Developer Mentor",
+        "startDate": { "year": 2022, "month": 8 },
+        "endDate": { "year": 2024, "month": 5 },
+        "description": "GoIT is a Ukrainian IT school that provides online courses for aspiring developers.",
+        "tasks": [
+            "Mentored students through a full-stack curriculum, from HTML, CSS, and JavaScript fundamentals to advanced technologies like Node.js and React.",
+            "Led junior teams in building responsive React projects, guiding them in applying their skills to real-world, collaborative development scenarios."
+        ]
+    },
+    {
         "id": "implementhit",
         "type": "job",
         "organization": "ImplementHIT",
         "name": "Mid. Fullstack Developer",
         "startDate": { "year": 2021, "month": 6 },
-        "endDate": { "year": now.getFullYear(), "month": now.getMonth() + 1 },
-        "description": "Fullstack developer for a US based company, developed multiple applications with the Laravel and Vue.js stack of technologies.",
+        "endDate": { "year": 2024, "month": 11 },
+        "description": "",
         "tasks": [
-            "Developed applications to companies in the USA medical sector.",
-            "Developed SPAs and Web APIs with Laravel, Vue.js and MySQL.",
-            "Used techniques such as index creation, Jobs, eager loading, cache management with Redis for better performance and response times.",
-            "Implementation of unit and feature tests.",
-            "Generation of Excel and PDF reports, integrating libraries."
+            "Developed SPAs and Web APIs for US-based medical sector companies using Laravel, Vue.js, and MySQL, delivering HIPAA-compliant, healthcare applications.",
+            "Optimized application performance and response times through database indexing, eager loading, queued jobs, and Redis-based caching strategies.",
+            "Implemented unit and feature test suites to ensure code reliability, and integrated third-party libraries for tasks such as automated Excel and PDF report generation."
         ]
     },
     {
@@ -25,18 +50,17 @@ const experiences: Experience[] = [
         "name": "Jr. Fullstack Developer",
         "startDate": { "year": 2019, "month": 10 },
         "endDate": { "year": 2021, "month": 5 },
-        "description": "Develop multiple applications with the Laravel and Vue.js stack of technologies.",
+        "description": "",
         "tasks": [
-            "Developed an SPA in Vue with Laravel, for collaborative project translations.",
-            "Developed a Mobile Android VoIP application “Vitxi”.",
-            "Migration of call rate software from VB6 to .Net Framework with Visual Basic and the DevExpress library."
+            "Built an SPA using Vue.js and Laravel to support collaborative project translations, and developed \"Vitxi,\" a mobile Android VoIP application.",
+            "Migrated a legacy call-rate software system from VB6 to .NET Framework using Visual Basic and the DevExpress library, modernizing a critical business tool."
         ]
     },
     {
         "id": "fitnesscorecenter",
         "type": "job",
         "organization": "Fitness Core Center",
-        "name": "Intern Jr. Developer",
+        "name": "Intern Jr. Fullstack Developer",
         "startDate": { "year": 2020, "month": 1 },
         "endDate": { "year": 2020, "month": 6 },
         "description": "",
@@ -53,8 +77,7 @@ const experiences: Experience[] = [
         "endDate": { "year": 2019, "month": 9 },
         "description": "",
         "tasks": [
-            "Desktop ERP development in .Net Framework.",
-            "Created multiple reports with Active Reports."
+            "Migrated a desktop ERP in .Net framework, with multiple reports in ActiveReports."
         ]
     },
     {

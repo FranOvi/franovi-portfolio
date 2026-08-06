@@ -1,8 +1,7 @@
 <template>
   <div class="bg-background" style="position: sticky; top: 48px; z-index: 10;">
     <div style="overflow: hidden; touch-action: none;">
-      <div ref="ganttTimelineRef" class="position-relative" :style="`height:${expanded ? 226 : 130}px;`" style="transition: height 0.4s">
-
+      <div ref="ganttTimelineRef" class="position-relative" :style="`height:${expanded ? 326 : 182}px;`" style="transition: height 0.4s">
         <div v-for="(item, index) in experiences" :key="item.id" class="position-absolute rounded-xl mt-1 py-1 px-2"
           :class="{ 'bg-error': item.type === 'job', 'bg-blue': item.type === 'education' }"
           style="transition: top 0.4s, height 0.4s"

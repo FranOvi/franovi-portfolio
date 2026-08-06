@@ -5,12 +5,12 @@
         <v-col cols="12" md="7" class="mt-16 bg-surface">
           <p class="font-weight-bold">Hello there, I'm</p>
           <h1 class="text-h2 font-weight-bold">Francisco Oviedo</h1>
-          <h4 class="text-h3 font-weight-bold mt-4 text-gradient">Mid Fullstack Developer</h4>
+          <h4 class="text-h3 font-weight-bold mt-4 text-gradient">Fullstack Web Developer</h4>
           <div class="mt-8">
             <v-btn href="#section-contact" class="text-capitalize" color="error" variant="flat" rounded size="large">
               Let's talk
             </v-btn>
-            <v-btn href="/franovi-portfolio/Curriculum 2024 Francisco (en).pdf" target="_blank" class="text-capitalize ml-2" color="error" variant="text" rounded size="large">
+            <v-btn href="/franovi-portfolio/Curriculum 2026 Francisco (en) linkedin.pdf" target="_blank" class="text-capitalize ml-2" color="error" variant="text" rounded size="large">
               Resume
             </v-btn>
           </div>
@@ -31,12 +31,14 @@
         </v-col>
       </v-row>
     </v-container>
-    <v-btn v-if="!mobile" href="#section-about" class="position-absolute" rounded style="bottom: 10px;" stacked variant="text">
-      <template #prepend>
-        <v-icon icon="mdi-arrow-down" class="ml-2 scroll-indicator"></v-icon>
-      </template>
-      Scroll
-    </v-btn>
+    <v-fade-transition v-if="!mobile">
+      <v-btn v-show="!scrolled" href="#section-about" class="position-absolute" rounded style="bottom: 10px;" stacked variant="text">
+        <template #prepend>
+          <v-icon icon="mdi-arrow-down" class="ml-2 scroll-indicator"></v-icon>
+        </template>
+        Scroll
+      </v-btn>
+    </v-fade-transition>
 
   </v-container>
   <v-container class="py-16" id="section-about">
@@ -44,9 +46,9 @@
     <v-row>
       <v-col cols="12" lg="8" xl="6">
         <v-sheet>
-          <p class="text-body-1 text-justify mb-3">My name is Francisco Oviedo, I am a Mid Fullstack Developer. Graduated from Universidad Centroamericana (UCA), Nicaragua in 2021, with a bachelor in Systems Engineering.</p>
-          <p class="text-body-1 text-justify mb-3">With a passion for web development and 3+ years of experience in Laravel and Vue.js, I strive to create high-quality, efficient, and user-friendly web applications.</p>
-          <p class="text-body-1 text-justify mb-3">I reside in Nicaragua in Latin America, I'm open to work remotely.</p>
+          <p class="text-body-1 text-justify mb-3">I'm Francisco Oviedo, a Systems Engineering graduate (UCA, 2021) and Full-Stack Developer with 7+ years of experience specializing in Laravel Vue.js React Node.js.</p>
+          <p class="text-body-1 text-justify mb-3">I am passionate about building high-quality, efficient, and user-centric web applications.</p>
+          <p class="text-body-1 text-justify mb-3">Based in Nicaragua (LATAM) and actively looking for remote opportunities worldwide. Let's connect!</p>
         </v-sheet>
       </v-col>
       <v-spacer class="d-none d-lg-block"/>
@@ -54,15 +56,15 @@
         <div class="d-flex flex-wrap justify-space-between" style="gap: 30px">
           <v-sheet class="pa-2 flex-fill">
             <div class="text-h4 font-weight-medium">
-              4<span class="text-primary">+</span>
+              7<span class="text-primary">+</span>
             </div>
             <span class="text-medium-emphasis">Years of experience</span>
           </v-sheet>
           <v-sheet class="pa-2 flex-fill">
             <div class="text-h4 font-weight-medium">
-              20<span class="text-primary">+</span>
+              30<span class="text-primary">+</span>
             </div>
-            <span class="text-medium-emphasis">Proyects</span>
+            <span class="text-medium-emphasis">Projects</span>
           </v-sheet>
           <v-sheet class="pa-2 flex-fill">
             <div class="text-h4 font-weight-medium">
@@ -78,53 +80,43 @@
   <div class="bg-surface-variation">
     <v-container class="py-16 my-6">
       <v-row>
-        <v-col cols="12" md="6" lg="3">
-          <v-card class="fill-height card-metrics hover-grow py-2" color="dark">
+        <v-col v-for="(card, index) in metricCards" :key="card.title" cols="12" md="6" lg="3">
+          <v-card
+            class="fill-height card-metrics hover-grow py-2"
+            :color="activeCardIndex === index ? 'dark' : undefined"
+            @mouseenter="activeCardIndex = index"
+          >
             <v-card-item>
-              <v-icon size="x-large" icon="mdi-puzzle-outline"></v-icon>
-              <h4 class="mt-12">Problem Solving</h4>
-              <p class="my-2">Analytical thinking to solve challenges</p>
+              <v-icon size="x-large" :icon="card.icon"></v-icon>
+              <h4 class="mt-12">{{ card.title }}</h4>
+              <p class="my-2" :class="{ 'text-medium-emphasis': activeCardIndex !== index }">{{ card.description }}</p>
             </v-card-item>
           </v-card>
         </v-col>
-        <v-col cols="12" md="6" lg="3">
-          <v-card class="fill-height card-metrics hover-grow py-2">
-            <v-card-item>
-              <v-icon size="x-large" icon="mdi-head-lightbulb-outline"></v-icon>
-              <h4 class="mt-12">Creativity</h4>
-              <p class="my-2 text-medium-emphasis">Outside the box thinking to come up with innovative solutions</p>
-            </v-card-item>
-          </v-card>
-        </v-col>
-        <v-col cols="12" md="6" lg="3">
-          <v-card class="fill-height card-metrics hover-grow py-2">
-            <v-card-item>
-              <v-icon size="x-large" icon="mdi-account-supervisor-circle-outline"></v-icon>
-              <h4 class="mt-12">Leadership</h4>
-              <p class="my-2 text-medium-emphasis">Guide and support teams towards a common goal</p>
-            </v-card-item>
-          </v-card>
-        </v-col>
-        <v-col cols="12" md="6" lg="3">
-          <v-card class="fill-height card-metrics hover-grow py-2">
-            <v-card-item>
-              <v-icon size="x-large" icon="mdi-account-group-outline"></v-icon><!-- mdi-crowd -->
-              <h4 class="mt-12">Team Player</h4>
-              <p class="my-2 text-medium-emphasis">Communicate and collaborate with others in a team enviroment</p>
-            </v-card-item>
-          </v-card>
-        </v-col>
-    </v-row>
+      </v-row>
     </v-container>
   </div>
 </template>
 
 <script lang="ts" setup>
   import { useDisplay } from 'vuetify';
-  import { ref, onMounted } from 'vue';
+  import { ref, onMounted, onUnmounted } from 'vue';
 
   const { mobile } = useDisplay();
   const cardRef = ref();
+  const scrolled = ref(false);
+  const activeCardIndex = ref(0);
+
+  const metricCards = [
+    { icon: 'mdi-puzzle-outline', title: 'Problem Solving', description: 'Analytical thinking to solve challenges' },
+    { icon: 'mdi-head-lightbulb-outline', title: 'Creativity', description: 'Outside the box thinking to come up with innovative solutions' },
+    { icon: 'mdi-account-supervisor-circle-outline', title: 'Leadership', description: 'Guide and support teams towards a common goal' },
+    { icon: 'mdi-account-group-outline', title: 'Team Player', description: 'Communicate and collaborate with others in a team environment' },
+  ];
+
+  function handleScroll() {
+    scrolled.value = window.scrollY > 0;
+  }
 
   function handleHover(e: any) {
     const THRESHOLD = 15;
@@ -156,6 +148,9 @@
   }
 
   onMounted(() => {
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+
     const motionMatchMedia = window.matchMedia("(prefers-reduced-motion)");
     if (motionMatchMedia.matches) return;
 
@@ -165,6 +160,10 @@
       cardRef?.value?.addEventListener("mousemove", handleHover);
       cardRef?.value?.addEventListener("mouseleave", resetStyles);
     }
+  });
+
+  onUnmounted(() => {
+    window.removeEventListener("scroll", handleScroll);
   });
 </script>
 <style scoped>
@@ -239,6 +238,10 @@
     box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
   }
 
+  .card-metrics p {
+    transition: opacity .4s ease;
+  }
+
   .card-hover-effect {
     transition: transform 0.1s ease;
     transform-style: preserve-3d;
@@ -261,7 +264,7 @@
   }
 
   .hover-grow {
-    transition: transform .2s ease-in-out;
+    transition: transform .2s ease-in-out, background-color .4s ease, color .4s ease;
   }
 
   .hover-grow:hover {
