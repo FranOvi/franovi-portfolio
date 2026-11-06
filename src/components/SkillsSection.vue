@@ -5,9 +5,9 @@
 
     <div>
 
-    <TimelineGantt class="mb-10" @selectExpand="(id: string) => selectExpandId(id)"></TimelineGantt>
+    <TimelineGantt class="mb-10" @selectExpand="(id: string) => selectExpandId(id)" @isExpanded="(bool: boolean) => timelineExpanded = bool" />
 
-    <v-timeline side="end" justify="start" truncate-line="both" :style="`grid-template-columns: ${mobile ? '0' : '1'}fr 0fr 6fr;`">
+    <v-timeline side="end" justify="start" truncate-line="both" line-inset="12" :style="`grid-template-columns: ${mobile ? '0' : '1'}fr 0fr 6fr;`">
       <v-timeline-item
         v-for="experience in experiences"
         :key="experience.id"
@@ -25,6 +25,9 @@
         <v-card @click="selectExpandId(experience.id)"
           :id="`experience-card-${experience.id}`"
           class="elevation-0 py-4"
+          :style="{
+            scrollMarginTop: (timelineExpanded ? 320 : 200) + 'px'
+          }"
         >
           <v-card-title class="text-h6 pt-0 pb-2">
             {{ experience.name }}
@@ -122,11 +125,17 @@
   const { mobile } = useDisplay();
   const toggle = ref<''|'experience'|'type'>('');
   const expandId = ref('implementhit');
+  const timelineExpanded = ref(false);
 
   const selectExpandId = (id: string) => {
     const oldElement = document.getElementById(`experience-card-${expandId.value}`);
     const element = document.getElementById(`experience-card-${id}`);
     expandId.value = (expandId.value === id ? '' : id);
+
+    const oldIndex = experiences.findIndex(e => e.id === expandId.value);
+    const index = experiences.findIndex(e => e.id === id);
+
+    if (expandId.value === '' ) return;
 
     //Cheating a little bit. I know px will be the height after transition
     //TODO Al cambiar entre items en el accordion (Experiences) se debe hacer scroll de ser necesario para que no quede fuera de vista el item seleccionado
@@ -136,7 +145,12 @@
         top:
           oldElement.getBoundingClientRect().top +
           window.pageYOffset +
-          -300 + 68,
+          -(timelineExpanded.value ? 300 : 150) + 68,
+      })
+    } else if (element) {
+      element.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
       })
     }
   };

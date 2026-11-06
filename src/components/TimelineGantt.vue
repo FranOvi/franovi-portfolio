@@ -1,8 +1,8 @@
 <template>
   <div class="bg-background" style="position: sticky; top: 48px; z-index: 10;">
     <div style="overflow: hidden; touch-action: none;">
-      <div ref="ganttTimelineRef" class="position-relative" :style="`height:${expanded ? 326 : 182}px;`" style="transition: height 0.4s">
-        <div v-for="(item, index) in experiences" :key="item.id" class="position-absolute rounded-xl mt-1 py-1 px-2"
+      <div ref="ganttTimelineRef" class="position-relative" :style="`height:${expanded ? 270 : 154}px;`" style="transition: height 0.4s">
+        <div v-for="(item, index) in experiencesShown" :key="item.id" class="position-absolute rounded-xl mt-1 py-1 px-2"
           :class="{ 'bg-error': item.type === 'job', 'bg-blue': item.type === 'education' }"
           style="transition: top 0.4s, height 0.4s"
           :style="`height:${expanded ? 30 : 16}px; top: ${(index * (expanded ? 40 : 20))}px; left: ${mapSimpleDate(item.startDate)}%; width: ${mapSimpleDate(item.endDate) - mapSimpleDate(item.startDate)}%;`"
@@ -38,15 +38,18 @@
   </div>
 </template>
 <script lang="ts" setup>
-  import { ref, computed } from 'vue';
+  import { ref, computed, watch } from 'vue';
   import { SimpleDate } from '@/types/simpleDate';
   import usePanZoom from '@/use/panZoom';
   import useMapSimpleDate from '@/use/mapSimpleDate';
   import experiences from '@/data/experiences.ts';
 
-  const emit = defineEmits(['selectExpand']);
+  const experiencesShown = computed(() => experiences.filter((item) => !item.hide));
+
+  const emit = defineEmits(['selectExpand', 'isExpanded']);
 
   const selectExpand = (id: string) => emit('selectExpand', id);
+  const isExpanded = (bool: boolean) => emit('isExpanded', bool);
 
   const ganttTimelineRef = ref();
   const {scale, zoomUp, zoomDown} = usePanZoom(ganttTimelineRef);
@@ -58,6 +61,10 @@
 
   const snackbar = ref(false);
   const expanded = ref(false);
+
+  watch(expanded, (newValue) => {
+    isExpanded(newValue);
+  });
 
   const showLevel = computed(() => {
     if (scale.value <= 1) return 4;
